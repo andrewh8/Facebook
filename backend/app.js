@@ -34,7 +34,6 @@ app.use((err, req, res, next) => {
   res.json({
     message: err.message,
     stack: process.env.NODE_ENV === 'production' ? null : err.stack
-    // change to output stack only in development
   })
 });
 

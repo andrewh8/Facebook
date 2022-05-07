@@ -14,25 +14,28 @@ exports.post_list = async (req, res, next) => {
 // Create a Post (POST /api/posts)
 exports.post_create = async (req, res, next) => {
   try {
-    if (!req.body.username) {
+    const {username, content, comments} = req.body;
+
+    if (!username) {
       const err = new Error('Please add username');
       err.status = 400;
       return next(err);
     }
-    if (!req.body.content) {
+    if (!content) {
       const err = new Error('Please add content');
       err.status = 400;
       return next(err);
     }
 
     const post = new Post({
-      username: req.body.username,
-      content: req.body.content,
-      comments:req.body.comments
+      username: username,
+      content: content,
+      comments: comments
     });
   
     await post.save();
-    res.json(post);
+    res.status(201).json(post);
+    
   } catch (err) {
     next(err)
   }
