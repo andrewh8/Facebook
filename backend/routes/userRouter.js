@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
+const {protect} = require('../middleware/authMiddleware');
 
 // POST request to register a User
 router.post('/', userController.user_register_post);
@@ -9,6 +10,6 @@ router.post('/', userController.user_register_post);
 router.post('/login', userController.user_login_post);
 
 // GET request to display User details
-router.get('/me', userController.user_detail_get);
+router.get('/me', protect, userController.user_detail_get);
 
 module.exports = router;

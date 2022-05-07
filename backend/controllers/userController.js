@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-/// Register new User (POST /api/users) ///
+/// Register new User (POST /api/users) - public ///
 exports.user_register_post = async (req, res, next) => {
   try {
     const {name, email, password} = req.body;
@@ -40,7 +40,8 @@ exports.user_register_post = async (req, res, next) => {
       res.status(201).json({
         _id: user.id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        token: generateToken(user._id)
       });
     } else {
       const err = new Error('Invalid User Data');
@@ -54,7 +55,7 @@ exports.user_register_post = async (req, res, next) => {
 }
 
 
-/// Login User (POST /api/users/login) ///
+/// Login User (POST /api/users/login) - public ///
 exports.user_login_post = async (req, res, next) => {
   try {
     const {email, password} = req.body;
@@ -67,7 +68,8 @@ exports.user_login_post = async (req, res, next) => {
       res.json({
         _id: user.id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        token: generateToken(user._id)
       });
     } else {
       const err = new Error('Invalid Credentials');
@@ -80,7 +82,15 @@ exports.user_login_post = async (req, res, next) => {
 }
 
 
-/// Display User details (GET /api/users/me) ///
+/// Display User details (GET /api/users/me) - private ///
 exports.user_detail_get = (req, res, next) => {
-  res.json({message: 'User Details'});
+  res.json(req.user);
+}
+
+
+/// Generate JWT ///
+const generateToken = (id) => {
+  return jwt.sign({id}, process.env.JWT_SECRET, {
+    expiresIn: '30d'
+  });
 }
