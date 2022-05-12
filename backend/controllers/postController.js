@@ -1,7 +1,7 @@
 const Post = require('../models/postModel');
 const mongoose = require('mongoose');
 
-// Display a List of Posts (GET /api/posts) - private
+/// Display a List of Posts (GET /api/posts) - private ///
 exports.post_list = async (req, res, next) => {
   try {
     const posts = await Post.find({user: req.user.id});
@@ -11,7 +11,7 @@ exports.post_list = async (req, res, next) => {
   }
 }
 
-// Create a Post (POST /api/posts) - private
+/// Create a Post (POST /api/posts) - private ///
 exports.post_create = async (req, res, next) => {
   try {
     const {content, comments} = req.body;
@@ -36,7 +36,7 @@ exports.post_create = async (req, res, next) => {
   }
 }
 
-// Update a Post (PUT /api/posts/id) - private
+/// Update a Post (PUT /api/posts/id) - private ///
 exports.post_update = async (req, res, next) => {
   try {
     const post = await Post.findOne({_id: req.params.id});
@@ -72,7 +72,7 @@ exports.post_update = async (req, res, next) => {
   }
 }
 
-// Delete a Post (DELETE /api/posts/id) - private
+/// Delete a Post (DELETE /api/posts/id) - private ///
 exports.post_delete = async (req, res, next) => {
   try {
     const post = await Post.findOne({_id: req.params.id});

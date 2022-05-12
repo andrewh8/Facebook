@@ -1,12 +1,18 @@
 // Import Dependencies
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const userRouter = require('./routes/userRouter');
 const postRouter = require('./routes/postRouter');
 const port = process.env.PORT;
 
 // Create Express App
 const app = express();
+
+// Enable frontend as allowable origin for CORS
+app.use(cors({
+  origin: 'http://localhost:3000'
+}));
 
 // Setup Database
 const mongoose = require('mongoose');
