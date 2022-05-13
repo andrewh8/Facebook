@@ -72,7 +72,7 @@ exports.user_login_post = async (req, res, next) => {
         token: generateToken(user._id)
       });
     } else {
-      const err = new Error('Invalid Credentials');
+      const err = new Error('Wrong Email or Password');
       err.status = 400;
       return next(err);
     };

@@ -1,18 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Context } from '../Context';
-import {Link} from 'react-router-dom';
+import React from 'react';
+import Nav from './Nav';
 
 function Profile() {
 
-  const {userId, setUserId, token, setToken} = useContext(Context);
-
   return (
     <div>
+      <Nav />
       Profile
-      {userId}
-      <Link to='/login'>
-        <li>Login</li>
-      </Link>
     </div>
   );
 }

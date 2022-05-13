@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Context } from '../Context';
-import {Link} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
-  const {userId, setUserId, token, setToken} = useContext(Context);
+
+  // Initialize methods and properties
+  const {setUser} = useContext(Context);
+  const navigate = useNavigate();
+  let error = '';
 
   // Collect email and password from Form imputs with state and onChange functions
   const [email, setEmail] = useState('');
@@ -15,9 +19,10 @@ function Login() {
     setEmail(e.target.value);
   }
 
-  // POST Login - /api/users/login
-  // Provide login credentials in api request upon form submittal
+  /// POST Login - /api/users/login  ///
+  /// Provide login email and password credentials in api request upon form submittal ///
   const loginUser = async () => {
+    // Request - post email and password from Form to server
     const res = await fetch('http://localhost:5000/api/users/login', {
       method: 'POST',
       headers: {
@@ -29,15 +34,39 @@ function Login() {
       })
     })
 
+    // Response - collect user info / error message from server
     const user = await res.json();
-    setUserId(user._id);
-    setToken(user.token);
+    
+    // Handle Response
+    if (user.errorMessage) {
+      error = user.errorMessage;
+    } else {
+      // Store JWT from server response into localStorage
+      localStorage.setItem('jwt', user.token);
+      console.log(localStorage.getItem('jwt'));   //////////// REMOVE /////////////////
+  
+      // Store User in State
+      setUser(user);
+  
+      // Navigate to Home screen if token provided by api/users/login
+      if (user.token) {
+        navigate('/');
+      }
+    }
   }
+
+  // useEffect(() => {
+  //   if (localStorage.getItem('jwt')) {
+  //     navigate('/');
+  //   }
+  // }, []);
 
   return (
     <div>
+      {error &&
+        <div> {error} </div>
+      }
       Login
-      ______{userId}_____{token}
       <form>
         <label htmlFor="email">Email</label>
         <input 
@@ -57,10 +86,6 @@ function Login() {
 
         <div onClick={loginUser}>Log In</div>
       </form>
-      
-      <Link to='/profile'>
-          <li>Profile</li>
-      </Link>
     </div>
   );
 }

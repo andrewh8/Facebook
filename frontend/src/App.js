@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import {Context} from './Context';
+import { Context } from './Context';
 import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -8,11 +8,10 @@ import Profile from './components/Profile';
 
 function App() {
 
-  const [userId, setUserId] = useState(null);
-  const [token, setToken] = useState(null);
+  const [user, setUser] = useState(null);
 
   return (
-    <Context.Provider value={{userId, setUserId, token, setToken}}>
+    <Context.Provider value={{user, setUser}}>
       <BrowserRouter>
         <div className='App'>
           <Routes>
