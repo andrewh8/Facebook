@@ -8,7 +8,7 @@ import Profile from './components/Profile';
 
 function App() {
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState('');
 
   return (
     <Context.Provider value={{user, setUser}}>
