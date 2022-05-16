@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Context } from '../Context';
 import { useNavigate } from 'react-router-dom'
+import '../styles/Login.css';
 
 function Login() {
 
   // Initialize methods and properties
   const {setUser} = useContext(Context);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   // Collect email and password from Form imputs with state and onChange functions
@@ -54,6 +55,11 @@ function Login() {
       .catch((err) => console.log(err))    
   }
 
+  // Remove 
+  const removeError = () => {
+    setError('');
+  }
+
   // If user has JWT when accessing /login, re-direct user to Home component
   useEffect(() => {
     if (localStorage.getItem('jwt')) {
@@ -62,28 +68,49 @@ function Login() {
   }, []);
 
   return (
-    <div>
-      {error && <div> {error} </div>}
-      Login
-      <form>
-        <label htmlFor="email">Email</label>
-        <input 
-          onChange={emailChange}
-          type="text" 
-          name="email" 
-          id="email"
-        />
-
-        <label htmlFor="password">Password</label>
-        <input 
-          onChange={passwordChange}
-          type="text" 
-          name="password" 
-          id="password"
-        />
-
-        <div onClick={loginUser}>Log In</div>
-      </form>
+    <div className='p-5 text-center text-sm-start bg-light d-sm-flex align-items-center justify-content-evenly'>
+      <div>
+        <h1 className='text-primary fs-1 logo'>Facebook Clone</h1>
+        <p className='text-dark fs-4'>Join your friends online</p>
+      </div>
+      <div className='text-center'>
+        <form className='shadow p-5 rounded mb-3'>
+          <div className='mb-3'>
+            <input 
+              className='form-control'
+              onChange={emailChange}
+              placeholder='Email'
+              type="text" 
+              name="email" 
+              id="email"
+              required
+            />
+          </div>
+          <div className='mb-3'>
+            <input 
+              className='form-control'
+              onChange={passwordChange}
+              placeholder='Password'
+              type="text" 
+              name="password" 
+              id="password"
+              required
+            />
+          </div>
+          <div className="d-grid gap-2">
+            <button className="btn btn-primary" type="button" onClick={loginUser}>Log In</button>
+            <button className="btn btn-success" type="button">Create New Account</button>
+          </div>
+        </form>
+        <div>
+          {error &&
+            <div className="alert alert-danger py-1" role="alert">
+              {error}
+              <button type="button" className="btn-close ps-5" onClick={removeError}></button>
+            </div>
+          }
+        </div>
+      </div>
     </div>
   );
 }

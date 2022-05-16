@@ -1,0 +1,11 @@
+body {
+    height: 100%
+}
+
+form {
+    background-color: white;
+}
+
+.alert {
+    position: fixed;
+}

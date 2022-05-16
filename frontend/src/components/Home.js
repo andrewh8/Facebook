@@ -42,10 +42,12 @@ function Home() {
   }, []);
 
   return (
-    <div>
+    <div className='bg-light'>
       <Nav />
-      Home
-      User = {user.name}      
+      <div className='mt-5 pt-5'>
+        Home
+        User = {user.name}      
+      </div>
     </div>
   );
 }
