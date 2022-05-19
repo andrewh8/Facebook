@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
-import { Context } from '../Context';
+import { Context } from '../../Context';
 import { useNavigate } from 'react-router-dom'
-import Nav from './Nav';
+import Nav from '../Nav/Nav';
 
 function Home() {
   const {user, setUser} = useContext(Context);
@@ -44,7 +44,7 @@ function Home() {
   return (
     <div className='bg-light'>
       <Nav />
-      <div className='mt-5 pt-5'>
+      <div className='mt-5 pt-5' title='divTest'>
         Home
         User = {user.name}      
       </div>

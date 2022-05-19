@@ -7,9 +7,9 @@ import {
   FaBell,
   FaHome,
 } from 'react-icons/fa';
-import { Context } from '../Context';
+import { Context } from '../../Context';
 import { useNavigate } from 'react-router-dom'
-import '../styles/Nav.css';
+import './Nav.css';
 
 function Nav() {
 
