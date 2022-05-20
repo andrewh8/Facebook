@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react';
-import { Context } from '../../Context';
+import { UserContext } from '../../UserContext';
 import { useNavigate } from 'react-router-dom'
 import Nav from '../Nav/Nav';
 
 function Home() {
-  const {user, setUser} = useContext(Context);
+  const {user, setUser} = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Context } from './Context';
+import { UserProvider } from './UserContext';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
@@ -9,10 +9,8 @@ import './App.css';
 
 function App() {
 
-  const [user, setUser] = useState('');
-
   return (
-    <Context.Provider value={{user, setUser}}>
+    <UserProvider>
       <BrowserRouter>
         <div className='App'>
           <Routes>
@@ -23,7 +21,7 @@ function App() {
           </Routes>
         </div>
       </BrowserRouter>
-    </Context.Provider>
+    </UserProvider>
   );
 }
 

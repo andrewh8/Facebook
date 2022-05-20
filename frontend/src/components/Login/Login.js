@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Context } from '../../Context';
+import { UserContext } from '../../UserContext';
 import { useNavigate } from 'react-router-dom'
 import './Login.css';
 
 function Login() {
 
   // Initialize methods and properties
-  const {setUser} = useContext(Context);
+  const {setUser} = useContext(UserContext);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 

@@ -7,13 +7,12 @@ import {
   FaBell,
   FaHome,
 } from 'react-icons/fa';
-import { Context } from '../../Context';
+import { UserContext } from '../../UserContext';
 import { useNavigate } from 'react-router-dom'
 import './Nav.css';
 
 function Nav() {
-
-  const {user, setUser} = useContext(Context);
+  const {user, setUser} = useContext(UserContext);
   const navigate = useNavigate();
 
   const logoutUser = () => {
