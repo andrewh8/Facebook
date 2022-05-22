@@ -6,43 +6,49 @@ import Nav from '../Nav/Nav';
 function Home() {
   const {user, setUser} = useContext(UserContext);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // Render Home if User is in state, otherwise check for and validate JWT in localStorage
+  
+  // If there is no User in state, check for a JWT to get User via fetch. If no JWT, navigate to login
+  const checkUser = (user) => {
     if (!user) {
-      if (localStorage.getItem('jwt')){
-        fetch('http://localhost:5000/api/users/me', {
-          method: 'GET',
-          headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('jwt')
-          }
-        })
-        .then(res => {
-          // Confirm JWT in localStorage is valid
-          if (!res.ok) {
-            console.log(res);
-            throw Error('Not Authorized');
-          }
-          return res.json()
-        })
-        .then(data => {
-          // If JWT is valid, set User to the api response from /api/users/me
-          setUser(data);
-        })
-        .catch(() => {
-          // If JWT is not valid, remove it from localStorage and redirect to login page
-          localStorage.removeItem('jwt');
-          navigate('/login');
-        })
+      const token = localStorage.getItem('jwt');
+      if (token){
+        getUser(token);
       } else {
-        // If JWT is not in localStorage, redirect to login page
         navigate('/login');
       }
     }
+  }
+
+  // Fetch user w/ JWT; Success - set User to response data; Failure - remove invalid JWT and navigate to login
+  const getUser = (token) => {
+    fetch('http://localhost:5000/api/users/me', {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + token
+          }
+    })
+    .then(res => {
+      if (!res.ok) {
+        throw Error('Not Authorized');
+      }
+      return res.json()
+    })
+    .then(data => {
+      setUser(data);
+    })
+    .catch(() => {
+      localStorage.removeItem('jwt');
+      navigate('/login');
+    })
+  }
+
+  // Render Home if User in state, otherwise obtain User with JWT or navigate to Login
+  useEffect(() => {
+    checkUser(user);
   }, []);
 
   return (
-    <div className='bg-light'>
+    <div data-testid='Home' className='bg-light'>
       <Nav />
       <div className='mt-5 pt-5' title='divTest'>
         Home

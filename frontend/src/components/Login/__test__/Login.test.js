@@ -1,13 +1,33 @@
-import { render, screen } from '@testing-library/react';
-import React from 'react';
+import { render, screen, fireEvent, findByText } from '@testing-library/react';
 import Login from '../Login';
+import { UserProvider } from '../../../UserContext';
+import { BrowserRouter } from 'react-router-dom';
+
 
 
 describe('Login', () => {
-  it('renders a form', async () => {
-    render(<Context.Provider><Login /></Context.Provider>);
-    const headingElement = await screen.findByText('Facebook Clone');
-    expect(headingElement).toBeInTheDocument();
-  });
-});
+  it('renders the Facebook Clone brand text', () => {
+    render(
+      <BrowserRouter>
+        <UserProvider>
+          <Login />
+        </UserProvider>
+      </BrowserRouter>
+    )
+    const brandNameElement = screen.getByRole('heading', {name: 'Facebook Clone'});
+    expect(brandNameElement).toBeInTheDocument();
+  })
 
+  it('renders a login form', () => {
+    render(
+      <BrowserRouter>
+        <UserProvider>
+          <Login />
+        </UserProvider>
+      </BrowserRouter>
+    )
+    const formElement = screen.getByPlaceholderText('Email');
+    expect(formElement).toBeInTheDocument();
+  })
+
+})

@@ -55,7 +55,7 @@ function Login() {
       .catch((err) => console.log(err))    
   }
 
-  // Remove 
+  // Remove error message box
   const removeError = () => {
     setError('');
   }
