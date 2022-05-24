@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../../UserContext';
 import { useNavigate } from 'react-router-dom'
 import Nav from '../Nav/Nav';
+import Thread from '../Thread/Thread';
 
 function Home() {
   const {user, setUser} = useContext(UserContext);
@@ -52,7 +53,8 @@ function Home() {
       <Nav />
       <div className='mt-5 pt-5' title='divTest'>
         Home
-        User = {user.name}      
+        User = {user.name}  
+        <Thread />
       </div>
     </div>
   );
