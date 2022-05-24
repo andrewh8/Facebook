@@ -3,6 +3,7 @@ import { UserContext } from '../../UserContext';
 import { useNavigate } from 'react-router-dom'
 import Nav from '../Nav/Nav';
 import Thread from '../Thread/Thread';
+import CreatePost from '../CreatePost/CreatePost';
 
 function Home() {
   const {user, setUser} = useContext(UserContext);
@@ -53,7 +54,8 @@ function Home() {
       <Nav />
       <div className='mt-5 pt-5' title='divTest'>
         Home
-        User = {user.name}  
+        User = {user.name}
+        <CreatePost user={user}/>
         <Thread />
       </div>
     </div>

@@ -34,25 +34,25 @@ function Login() {
         password: password
       })
     })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.errorMessage) {
-          // Handle custom Error response sent from API
-          setError(data.errorMessage);
-        } else {
-          // Store JWT from server response into localStorage
-          localStorage.setItem('jwt', data.token);
-      
-          // Store User in State
-          setUser(data);
-      
-          // Navigate to Home screen if token provided by api/users/login
-          if (data.token) {
-            navigate('/');
-          }
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.errorMessage) {
+        // Handle custom Error response sent from API
+        setError(data.errorMessage);
+      } else {
+        // Store JWT from server response into localStorage
+        localStorage.setItem('jwt', data.token);
+    
+        // Store User in State
+        setUser(data);
+    
+        // Navigate to Home screen if token provided by api/users/login
+        if (data.token) {
+          navigate('/');
         }
-      })
-      .catch((err) => console.log(err))    
+      }
+    })
+    .catch((err) => console.log(err))    
   }
 
   // Remove error message box
