@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import Home from '../Home';
-import { UserProvider } from '../../../UserContext';
+import Home from './Home';
+import { UserProvider } from '../../UserContext';
 import { BrowserRouter } from 'react-router-dom';
 
 describe('Home', () => {

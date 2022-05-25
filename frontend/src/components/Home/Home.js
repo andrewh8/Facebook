@@ -51,12 +51,14 @@ function Home() {
 
   return (
     <div data-testid='Home' className='bg-light'>
-      <Nav />
-      <div className='mt-5 pt-5' title='divTest'>
-        Home
-        User = {user.name}
-        <CreatePost user={user}/>
-        <Thread />
+      <div className='container'>
+        <Nav />
+        <div className='mt-5 pt-5' title='divTest'>
+          Home
+          User = {user.name}
+          <CreatePost user={user}/>
+          <Thread />
+        </div>
       </div>
     </div>
   );
