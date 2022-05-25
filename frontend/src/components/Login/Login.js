@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../UserContext';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Login.css';
 
 function Login() {
@@ -99,7 +100,9 @@ function Login() {
           </div>
           <div className="d-grid gap-2">
             <button className="btn btn-primary" type="button" onClick={loginUser}>Log In</button>
-            <button className="btn btn-success" type="button">Create New Account</button>
+            <Link to='/register' className="btn btn-success">
+              Create New Account
+            </Link>
           </div>
         </form>
         <div>
