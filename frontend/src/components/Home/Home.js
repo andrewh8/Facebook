@@ -56,7 +56,7 @@ function Home() {
         <div className='mt-5 pt-5' title='divTest'>
           Home
           User = {user.name}
-          <CreatePost user={user}/>
+          <CreatePost />
           <Thread />
         </div>
       </div>

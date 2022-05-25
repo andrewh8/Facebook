@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Post from '../Post/Post';
 
-function Thread({user}) {
+function Thread() {
   const [posts, setPosts] = useState([]);
 
   // Fetch user posts
@@ -31,7 +31,7 @@ function Thread({user}) {
   }, []);
 
   return (
-    <div>
+    <div className='bg-light'>
       I'm Thread
       {posts.map((post) => {
           return <Post key={post._id} post={post} />

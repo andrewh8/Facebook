@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { UserContext } from '../../UserContext';
 
-function CreatePost({user}) {
+function CreatePost() {
+  const {user} = useContext(UserContext);
   const [postContent, setPostContent] = useState('');
   const postContentChange = (e) => {
     setPostContent(e.target.value);
-  }
-
-  const [error, setError] = useState('');
-  const removeError = () => {
-    setError('');
   }
 
   const createPost = () => {
@@ -21,13 +18,6 @@ function CreatePost({user}) {
       body: JSON.stringify({
         content: postContent,
       })
-    })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.errorMessage) {
-        // Handle custom Error response sent from API
-        setError(data.errorMessage);
-      }
     })
   }
 
@@ -45,7 +35,7 @@ function CreatePost({user}) {
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
-              <form className=''>
+              <form>
                 <div className='mb-3'>
                   <textarea
                     rows="8" 
@@ -60,17 +50,9 @@ function CreatePost({user}) {
                   </textarea>
                 </div>
                 <div className="d-grid gap-2">
-                  <button className="btn btn-primary" type="button" onClick={createPost}>Post</button>
+                  <button className="btn btn-primary" type="submit" onClick={createPost}>Post</button>
                 </div>
               </form>
-              <div className='d-flex justify-content-center'>
-                {error &&
-                  <div className="alert alert-danger py-1 my-5" role="alert">
-                    {error}
-                    <button type="button" className="btn-close ps-5" onClick={removeError}></button>
-                  </div>
-                }
-              </div>
             </div>
           </div>
         </div>
