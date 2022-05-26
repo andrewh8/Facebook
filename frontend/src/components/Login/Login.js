@@ -105,7 +105,7 @@ function Login() {
             </Link>
           </div>
         </form>
-        <div className=''>
+        <div className='d-flex justify-content-center'>
           {error &&
             <div className="alert alert-danger py-1" role="alert">
               {error}

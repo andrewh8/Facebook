@@ -118,7 +118,7 @@ function Login() {
             <button className="btn btn-success" type="button" onClick={loginUser}>Register</button>
           </div>
         </form>
-        <div>
+        <div className='d-flex justify-content-center'>
           {error &&
             <div className="alert alert-danger py-1" role="alert">
               {error}
