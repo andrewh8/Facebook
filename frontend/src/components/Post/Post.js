@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../UserContext';
 import {
-  FaEllipsisH
+  FaEllipsisH,
 } from 'react-icons/fa';
 import './Post.css';
 
@@ -10,7 +10,7 @@ function Post({post}) {
 
   return (
     <div className="card my-3 shadow-sm border border-1">
-      <div className="card-body">
+      <div className="card-body pb-1">
         <div className='d-flex align-items-center justify-content-between'>
           <div className='text-start'>
             <div className="my-0 fw-semibold">{user.name}</div>
@@ -20,9 +20,12 @@ function Post({post}) {
             <FaEllipsisH />
           </div>
         </div>
-        <p className="card-text">{post.content}</p>
-        {/* <a href="#" className="card-link">Card link</a>
-        <a href="#" className="card-link">Another link</a> */}
+        <p className="card-text text-start">{post.content}</p>
+        <hr className='mb-1'/>
+        <div className='d-flex align-items-center justify-content-evenly m-0'>
+          <button className='border-0 bg-white text-secondary fw-semibold'>Like</button>
+          <button className='border-0 bg-white text-secondary fw-semibold'>Comment</button>
+        </div>
       </div>
     </div>
   );

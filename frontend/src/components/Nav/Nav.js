@@ -38,9 +38,9 @@ function Nav() {
 
         <div className='collapse navbar-collapse' id='navbarSupportedContent'>
           <ul className='navbar-nav ms-auto'>
-            <li className='profileLink nav-item pt-1 rounded-pill'>
-              <Link to='/profile' className='nav-link fs-5 fw-semibold text-dark'>
-                <div className='pb-2'>
+            <li className='profileLink nav-item pt-1 rounded-pill my-1'>
+              <Link to='/profile' className='nav-link fs-6 fw-semibold text-dark'>
+                <div className='pb-1'>
                 {user.name} 
                 </div>
               </Link>

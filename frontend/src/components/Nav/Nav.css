@@ -15,6 +15,10 @@ nav {
     border: 0px;
 }
 
+.searchBar:hover {
+    background-color: rgb(226, 224, 252);
+}
+
 .nav-item:hover {
     background-color: rgb(217, 218, 224);
 }

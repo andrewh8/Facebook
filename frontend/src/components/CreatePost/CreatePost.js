@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { UserContext } from '../../UserContext';
+import './CreatePost.css';
 
 function CreatePost() {
   const {user} = useContext(UserContext);
@@ -23,9 +24,11 @@ function CreatePost() {
 
   return (
     <div>
-      <button type="button" className="btn " data-bs-toggle="modal" data-bs-target="#exampleModal">
-        What's on your mind, {user.name}?
-      </button>
+      <div className='card shadow-sm border border-1 py-3'>
+        <button type="button" className="text-start fs-5 createPost border-0 rounded-pill mx-4 my-2 p-2 text-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            What's on your mind, {user.name}?
+        </button>
+      </div>
 
       <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered">

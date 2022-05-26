@@ -1,0 +1,7 @@
+.createPost {
+    background-color: rgb(239, 238, 255);
+}
+
+.createPost:hover {
+    background-color: rgb(226, 224, 252);
+}
