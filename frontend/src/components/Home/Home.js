@@ -51,13 +51,17 @@ function Home() {
 
   return (
     <div data-testid='Home' className='bg-light'>
-      <div className='container'>
-        <Nav />
-        <div className='mt-5 pt-5' title='divTest'>
-          Home
-          User = {user.name}
-          <CreatePost />
-          <Thread />
+      <Nav />
+      <div className="row mt-5 pt-5 text-center">
+        <div className="col d-none d-sm-block">
+          Friends
+        </div>
+        <div className="col-md-6 px-5">
+            <CreatePost />
+            <Thread />
+        </div>
+        <div className="col d-none d-sm-block">
+          Notifications
         </div>
       </div>
     </div>

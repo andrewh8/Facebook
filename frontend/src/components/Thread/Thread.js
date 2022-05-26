@@ -32,7 +32,6 @@ function Thread() {
 
   return (
     <div className='bg-light'>
-      I'm Thread
       {posts.map((post) => {
           return <Post key={post._id} post={post} />
         })}

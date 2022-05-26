@@ -105,7 +105,7 @@ function Login() {
             </Link>
           </div>
         </form>
-        <div>
+        <div className=''>
           {error &&
             <div className="alert alert-danger py-1" role="alert">
               {error}

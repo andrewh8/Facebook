@@ -1,3 +1,4 @@
-html, body, .App, .App>div {
-    height: 100%
-  }
+html, body, #root, .App, .App>div {
+    height: 100%;
+    overflow: auto;
+ }

@@ -22,7 +22,7 @@ function Nav() {
   }
 
   return (
-    <nav className='navbar navbar-expand-sm navbar-light fixed-top shadow-sm p-0'>
+    <nav className='navbar navbar-expand-sm navbar-light fixed-top shadow-sm p-sm-0'>
       <div className='container-fluid'>
         <Link to='/'>
           <FaFacebook className='FacebookLogo' color="#17A9FD" fontSize="2.5em"/>
