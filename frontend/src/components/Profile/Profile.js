@@ -1,7 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../../UserContext';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import {
+  FaEllipsisH,
+} from 'react-icons/fa';
+import './Profile.css';
 import Nav from '../Nav/Nav';
+import Thread from '../Thread/Thread';
+import CreatePost from '../CreatePost/CreatePost';
 
 function Profile() {
   const {user, setUser} = useContext(UserContext);
@@ -49,17 +55,44 @@ function Profile() {
 
   return (
     <div className='bg-light'>
-      <div className='container'>
-        <Nav />
-        <div className='mt-5 pt-5' title='divTest'>
-          <div>
-            {user.name}
-          </div>
-          <div>
-            {user.email}
+      <Nav />
+      <section className='bg-white shadow-sm mt-5 p-5 mb-3'>
+        <div className='container w-75 d-flex justify-content-between align-items-end mt-5 pt-5'>
+          <h1>{user.name}</h1>
+          <button className='btn editButton text-dark fw-semibold'>Edit Profile</button>
+        </div>
+      </section>
+      <section>
+        <div className='container w-75 justify-content-between text-center'>
+          <div className="row">
+            <div className="col-md-5">
+              <div className='sticky-top'>
+                <div className="card text-start p-3 mb-3">
+                  <div className="card-body">
+                    <h5 className="card-title">Info</h5>
+                    <p className="card-text">My name is {user.name}. Please see the below information for more about me.</p>
+                  </div>
+                  <ul className="list-group list-group-flush">
+                    <li className="list-group-item">Location</li>
+                    <li className="list-group-item">School</li>
+                    <li className="list-group-item">Hobbies</li>
+                  </ul>
+                </div>
+                <div className="card text-start p-3 mb-3">
+                  <div className="card-body">
+                    <h5 className="card-title">Pictures</h5>
+                    {/* Pictures.map */}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-7">
+              <CreatePost />
+              <Thread />
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
