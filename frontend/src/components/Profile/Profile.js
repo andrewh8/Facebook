@@ -51,7 +51,7 @@ function Profile() {
   }, []);
 
   return (
-    <div className='bg-light'>
+    <div className='profileBackground'>
       <Nav />
       <section className='bg-white shadow-sm mt-5 p-5 mb-3'>
         <div className='container w-75 d-flex justify-content-between align-items-end mt-5 pt-5'>

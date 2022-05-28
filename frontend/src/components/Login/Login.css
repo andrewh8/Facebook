@@ -5,3 +5,7 @@ form {
 .alert {
     position: fixed;
 }
+
+.loginBackground {
+    background-color: rgb(236, 239, 240);
+}

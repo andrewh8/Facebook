@@ -69,7 +69,7 @@ function Login() {
   }, []);
 
   return (
-    <div className='p-5 text-center text-sm-start bg-light d-sm-flex align-items-center justify-content-evenly'>
+    <div className='p-5 text-center text-sm-start loginBackground d-sm-flex align-items-center justify-content-evenly'>
       <div>
         <h1 className='text-primary fs-1 logo'>Facebook Clone</h1>
         <p className='text-dark fs-4'>Join your friends online</p>

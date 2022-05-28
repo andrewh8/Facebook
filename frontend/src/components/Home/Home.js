@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import Nav from '../Nav/Nav';
 import Thread from '../Thread/Thread';
 import CreatePost from '../CreatePost/CreatePost';
+import './Home.css';
 
 function Home() {
   const {user, setUser} = useContext(UserContext);
@@ -50,7 +51,7 @@ function Home() {
   }, []);
 
   return (
-    <div data-testid='Home' className='bg-light'>
+    <div data-testid='Home' className='homeBackground'>
       <Nav />
       <div className="row mt-5 pt-5 text-center">
         <div className="col d-none d-sm-block">

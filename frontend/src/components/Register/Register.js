@@ -74,7 +74,7 @@ function Login() {
   }, []);
 
   return (
-    <div className='p-5 text-center text-sm-start bg-light d-sm-flex align-items-center justify-content-evenly'>
+    <div className='p-5 text-center text-sm-start registerBackground d-sm-flex align-items-center justify-content-evenly'>
       <div>
         <h1 className='text-success fs-1 logo'>Register an Account</h1>
         <p>Already have an account? <span> <Link to='/login'>Login</Link></span></p>

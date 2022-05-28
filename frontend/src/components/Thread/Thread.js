@@ -31,8 +31,8 @@ function Thread() {
   });
 
   return (
-    <div className='bg-light'>
-      {posts.map((post) => {
+    <div>
+      {posts.slice(0).reverse().map((post) => {
           return <Post key={post._id} post={post} posts={posts} setPosts={setPosts}/>
         })}
     </div>
