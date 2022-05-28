@@ -1,9 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../../UserContext';
 import { useNavigate } from 'react-router-dom';
-import {
-  FaEllipsisH,
-} from 'react-icons/fa';
 import './Profile.css';
 import Nav from '../Nav/Nav';
 import Thread from '../Thread/Thread';
