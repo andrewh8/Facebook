@@ -5,7 +5,7 @@ import {
 } from 'react-icons/fa';
 import './Post.css';
 
-function Post({post}) {
+function Post({post, posts, setPosts}) {
   const {user} = useContext(UserContext);
   const [postContent, setPostContent] = useState('');
   const postContentChange = (e) => {
@@ -25,6 +25,22 @@ function Post({post}) {
     })
   }
 
+  const deletePost = () => {
+    fetch(`http://localhost:5000/api/posts/${post._id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+      }})
+      .then((res) => {
+        if(res.ok) {
+          const id = posts.indexOf(post);
+          posts.splice(id, 1);
+          setPosts(posts)
+        }
+      })
+  }
+
   return (
     <div className="card my-3 shadow-sm border border-1">
       <div className="card-body pb-1">
@@ -40,8 +56,8 @@ function Post({post}) {
               <FaEllipsisH className='text-secondary'/>
             </button>
             <ul className="dropdown-menu text-center" aria-labelledby="dropdownMenuButton1">
-              <li><a className="dropdown-item" data-bs-toggle="modal" data-bs-target={`#editModal${post._id}`} href="#">Edit</a></li>
-              <li><a className="dropdown-item" href="#">Delete</a></li>
+              <li><a className="dropdown-item" data-bs-toggle="modal" data-bs-target={`#editModal${post._id}`}>Edit</a></li>
+              <li><a className="dropdown-item" onClick={deletePost}>Delete</a></li>
             </ul>
           </div>
         </div>

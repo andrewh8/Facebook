@@ -28,12 +28,12 @@ function Thread() {
 
   useEffect(() => {
     getPosts();
-  }, []);
+  });
 
   return (
     <div className='bg-light'>
       {posts.map((post) => {
-          return <Post key={post._id} post={post} />
+          return <Post key={post._id} post={post} posts={posts} setPosts={setPosts}/>
         })}
     </div>
   );
