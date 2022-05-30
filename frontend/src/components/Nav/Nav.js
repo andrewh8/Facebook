@@ -13,7 +13,8 @@ import './Nav.css';
 
 function Nav() {
   const {user, setUser} = useContext(UserContext);
-  const [searchResults, setSearchResults] = useState([]);
+  const [userList, setUserList] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
   const navigate = useNavigate();
 
   // Fetch Profile info based on user ID from url params
@@ -27,11 +28,15 @@ function Nav() {
     })
     .then(res => res.json())
     .then(data => {
-      setSearchResults(data);
+      setUserList(data);
     })
     .catch((err) => {
       console.log(err)
     })
+  }
+
+  const searchHandler = (e) => {
+    setSearchInput(e.target.value);
   }
 
   const logoutUser = () => {
@@ -51,35 +56,32 @@ function Nav() {
           <FaFacebook className='FacebookLogo' color="#17A9FD" fontSize="2.5em"/>
         </Link>
 
-
-
-        {/* //////////////////// MODIFY HERE //////////// */}
+        {/* SEARCH BAR */}
         <div className="dropdown">
           <div className="btn border-0 p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             <form className="d-flex" role="search">
-              <input className="searchBar form-control me-2 mx-3" type="search" placeholder="Search Facebook" aria-label="Search"/>
+              <input className="searchBar form-control me-2 mx-3" type="search" onChange={searchHandler} placeholder="Search Facebook" aria-label="Search"/>
             </form>
           </div>
           <ul className="dropdown-menu px-5 ms-4" aria-labelledby="dropdownMenuButton1">
-            {searchResults.map((searchResult) => {
-                return <Link to={`/profile/${searchResult._id}`} className="dropdown-item" key={searchResult._id}>{searchResult.name}</Link>
+            {userList.filter((val) => {
+              if(searchInput === '') {
+                return val;
+              } else if(val.name.toLowerCase().includes(searchInput.toLowerCase())) {
+                return val;
+              }
+            }).map((individual) => {
+                return <Link to={`/profile/${individual._id}`} className="dropdown-item" key={individual._id}>{individual.name}</Link>
               })}
           </ul>
         </div>
 
-
-
-
-
-
-
-
-
-
+        {/* COLLAPSED BUTTON */}
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
 
+        {/* NAV BAR */}
         <div className='collapse navbar-collapse' id='navbarSupportedContent'>
           <ul className='navbar-nav ms-auto'>
             <li className='profileLink nav-item pt-1 rounded-pill my-1'>
