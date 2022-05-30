@@ -4,7 +4,7 @@ import Post from '../Post/Post';
 function ProfileThread({id, profile}) {
   const [posts, setPosts] = useState([]);
 
-  // Fetch user posts
+  // Fetch Profile posts
   const getPosts = () => {
     fetch(`http://localhost:5000/api/posts/profile/${id}`, {
           method: 'GET',

@@ -57,19 +57,13 @@ function Profile() {
             'Authorization': 'Bearer ' + token
           }
     })
-    .then(res => {
-      // if (!res.ok) {
-      //   throw Error('Not Authorized');
-      // }
-      return res.json()
-    })
+    .then(res => res.json())
     .then(data => {
       setProfile(data);
     })
-    // .catch(() => {
-    //   localStorage.removeItem('jwt');
-    //   navigate('/login');
-    // })
+    .catch((err) => {
+      console.log(err)
+    })
   }
 
   // Render if User in state, otherwise obtain User with JWT or navigate to Login
