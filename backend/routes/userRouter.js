@@ -18,5 +18,8 @@ router.get('/me', protect, userController.user_detail_get);
 // GET request to display Profile details
 router.get('/:id', protect, userController.user_profile_get);
 
+// GET request to display Profile details
+router.put('/:id', protect, userController.user_friendRequest_put);
+
 
 module.exports = router;

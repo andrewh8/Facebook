@@ -121,6 +121,53 @@ exports.user_profile_get = async (req, res, next) => {
 }
 
 
+/// Friend Request (PUT api/users/:id)
+exports.user_friendRequest_put = async (req, res, next) => {
+  try {
+    const otherUser = await User.findOne({_id: req.params.id});
+
+    // if (!otherUser) {
+    //   const err = new Error('User not found');
+    //   err.status = 400;
+    //   return next(err);
+    // }
+
+    // // Check for User
+    // if (!req.user) {
+    //   const err = new Error('Not Logged In');
+    //   err.status = 401;
+    //   return next(err);
+    // }
+
+    if (otherUser.friends.includes(req.user.id)) {
+      const err = new Error('You\'re already friends');
+      err.status = 400;
+      return next(err);
+    }
+
+    if (otherUser.friendRequests.includes(req.user.id)) {
+      const err = new Error('You already sent a friend request');
+      err.status = 400;
+      return next(err);
+    }
+
+    await User.updateOne({"_id": `${req.params.id}`}, {"$push": {"friendRequests": `${req.user.id}`}});
+    await User.updateOne({"_id": `${req.user.id}`}, {"$push": {"pendingFriends": `${req.params.id}`}});
+    
+    // Implement friends check
+    // // Make sure the logged in user matches the post user
+    // if (post.user.toString() !== req.user.id) {
+    //   const err = new Error('User not authorized');
+    //   err.status = 401;
+    //   return next(err);
+    // }
+
+  } catch (err) {
+    next (err);
+  }
+}
+
+
 /// List all Users (GET api/users) - private ///
 exports.user_list_get = async (req, res, next) => {
   try {

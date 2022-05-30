@@ -12,6 +12,10 @@ function Profile() {
   let { id } = useParams();
   const navigate = useNavigate();
 
+  /// REMOVE THIS IF FRIEND BUTTON DISSAPEARS
+  const [error, setError] = useState('');
+
+
   // Confirm Login/Access Status
   // If there is no User in state, check for a JWT to get User via fetch. If no JWT, navigate to login
   const checkUser = (user) => {
@@ -66,6 +70,28 @@ function Profile() {
     })
   }
 
+  // Add Friend
+  const addFriend = () => {
+    const token = localStorage.getItem('jwt');
+    fetch(`http://localhost:5000/api/users/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }})
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.errorMessage) {
+        // Handle custom Error response sent from API
+        setError(data.errorMessage);
+      }
+    })
+  }
+
+  // Remove error message box
+  const removeError = () => {
+    setError('');
+  }
+
   // Render if User in state, otherwise obtain User with JWT or navigate to Login
   useEffect(() => {
     checkUser(user);
@@ -80,6 +106,17 @@ function Profile() {
           <h1>{profile.name}</h1>
           {(user._id === profile._id) &&
           <button className='btn editButton text-dark fw-semibold'>Edit Profile</button>
+          }
+          {(user._id !== profile._id) &&
+          <div className='d-flex justify-content-center'>
+            <button className='btn btn-primary' onClick={addFriend}>Add Friend</button>
+            {error &&
+              <div className="alert alert-danger py-1 mt-5" role="alert">
+                {error}
+                <button type="button" className="btn-close ps-5" onClick={removeError}></button>
+              </div>
+            }
+          </div>
           }
         </div>
       </section>

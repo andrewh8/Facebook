@@ -14,6 +14,24 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: [true, 'Please add a password']
+  },
+  friends: {
+    type: [{
+      type: String
+    }],
+    required: false
+  },
+  friendRequests: {
+    type: [{
+      type: String
+    }],
+    required: false
+  },
+  pendingFriends: {
+    type: [{
+      type: String
+    }],
+    required: false
   }
 });
 
