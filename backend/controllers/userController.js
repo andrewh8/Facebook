@@ -88,7 +88,7 @@ exports.user_detail_get = (req, res, next) => {
 }
 
 
-/// Display Other User details (GET /api/users/:id) - private ///
+/// Display Profile details (GET /api/users/:id) - private ///
 exports.profile_detail_get = async (req, res, next) => {
   try {
     const otherUser = await User.findOne({_id: req.params.id});

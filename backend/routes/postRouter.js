@@ -6,6 +6,9 @@ const {protect} = require('../middleware/authMiddleware');
 // GET request for Listing posts
 router.get('/', protect, postController.post_list);
 
+// GET request for Listing Profile posts
+router.get('/profile/:id', protect, postController.post_profilePosts_get);
+
 // POST request for Creating a post
 router.post('/', protect, postController.post_create);
 

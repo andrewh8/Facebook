@@ -1,5 +1,4 @@
 const Post = require('../models/postModel');
-const mongoose = require('mongoose');
 
 /// Display a List of Posts (GET /api/posts) - private ///
 exports.post_list = async (req, res, next) => {
@@ -10,6 +9,17 @@ exports.post_list = async (req, res, next) => {
     next(err);
   }
 }
+
+/// Display Profile Posts (GET /api/posts/profile/:id) - private ///
+exports.post_profilePosts_get = async (req, res, next) => {
+  try {
+    const posts = await Post.find({user: req.params.id});
+    res.json(posts);
+  } catch (err) {
+    next(err);
+  }
+}
+
 
 /// Create a Post (POST /api/posts) - private ///
 exports.post_create = async (req, res, next) => {

@@ -3,14 +3,14 @@ import { UserContext } from '../../UserContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import './Profile.css';
 import Nav from '../Nav/Nav';
-import Thread from '../Thread/Thread';
+import ProfileThread from '../ProfileThread/ProfileThread';
 import CreatePost from '../CreatePost/CreatePost';
 
 function Profile() {
   const {user, setUser} = useContext(UserContext);
   const [profile, setProfile] = useState('')
-  const navigate = useNavigate();
   let { id } = useParams();
+  const navigate = useNavigate();
 
   // Confirm Login/Access Status
   // If there is no User in state, check for a JWT to get User via fetch. If no JWT, navigate to login
@@ -113,7 +113,7 @@ function Profile() {
             </div>
             <div className="col-md-7">
               <CreatePost />
-              <Thread />
+              <ProfileThread id={id}/>
             </div>
           </div>
         </div>
