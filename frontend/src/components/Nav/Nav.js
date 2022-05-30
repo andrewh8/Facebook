@@ -62,7 +62,7 @@ function Nav() {
           </div>
           <ul className="dropdown-menu px-5 ms-4" aria-labelledby="dropdownMenuButton1">
             {searchResults.map((searchResult) => {
-                return <li key={searchResult._id}><a className="dropdown-item">{searchResult.name}</a></li>
+                return <Link to={`/profile/${searchResult._id}`} className="dropdown-item" key={searchResult._id}>{searchResult.name}</Link>
               })}
           </ul>
         </div>
