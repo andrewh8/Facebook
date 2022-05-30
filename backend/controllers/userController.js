@@ -1,5 +1,4 @@
 const User = require('../models/userModel');
-const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
@@ -89,7 +88,7 @@ exports.user_detail_get = (req, res, next) => {
 
 
 /// Display Profile details (GET /api/users/:id) - private ///
-exports.profile_detail_get = async (req, res, next) => {
+exports.user_profile_get = async (req, res, next) => {
   try {
     const otherUser = await User.findOne({_id: req.params.id});
 
@@ -118,6 +117,17 @@ exports.profile_detail_get = async (req, res, next) => {
 
   } catch (err) {
     next (err);
+  }
+}
+
+
+/// List all Users (GET api/users) - private ///
+exports.user_list_get = async (req, res, next) => {
+  try {
+    const posts = await User.find({}, {name: 1});
+    res.json(posts);
+  } catch (err) {
+    next(err);
   }
 }
 
