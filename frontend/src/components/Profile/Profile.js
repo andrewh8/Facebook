@@ -76,7 +76,7 @@ function Profile() {
   useEffect(() => {
     checkUser(user);
     getProfile();
-  }, []);
+  }, [profile]);
 
   return (
     <div className='profileBackground'>
@@ -84,7 +84,9 @@ function Profile() {
       <section className='bg-white shadow-sm mt-5 p-5 mb-3'>
         <div className='container w-75 d-flex justify-content-between align-items-end mt-5 pt-5'>
           <h1>{profile.name}</h1>
+          {(user._id === profile._id) &&
           <button className='btn editButton text-dark fw-semibold'>Edit Profile</button>
+          }
         </div>
       </section>
       <section>
@@ -112,8 +114,10 @@ function Profile() {
               </div>
             </div>
             <div className="col-md-7">
+              {(user._id === profile._id) &&
               <CreatePost />
-              <ProfileThread id={id}/>
+              }
+              <ProfileThread id={id} profile={profile}/>
             </div>
           </div>
         </div>

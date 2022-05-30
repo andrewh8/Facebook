@@ -5,7 +5,7 @@ import {
 } from 'react-icons/fa';
 import './Post.css';
 
-function Post({post, posts, setPosts}) {
+function Post({post, posts, setPosts, id, profile}) {
   const {user} = useContext(UserContext);
   const [postContent, setPostContent] = useState('');
   const postContentChange = (e) => {
@@ -42,15 +42,16 @@ function Post({post, posts, setPosts}) {
   }
 
   return (
-    <div className="card my-3 shadow-sm border border-1">
+    <div className="card mb-3 shadow-sm border border-1">
       <div className="card-body pb-1">
         <div className='d-flex align-items-center justify-content-between'>
           <div className='text-start'>
-            <div className="my-0 fw-semibold">{user.name}</div>
+            <div className="my-0 fw-semibold">{profile.name}</div>
             <div className="date-text my-0 text-secondary">Date / Time</div>
           </div>
 
           {/* Edit and Delete Buttons */}
+          {(user._id === id) &&
           <div className="dropdown">
             <button className="btn border-0" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
               <FaEllipsisH className='text-secondary'/>
@@ -60,6 +61,7 @@ function Post({post, posts, setPosts}) {
               <li><a className="dropdown-item" onClick={deletePost}>Delete</a></li>
             </ul>
           </div>
+          }
         </div>
 
         {/* Post Content */}

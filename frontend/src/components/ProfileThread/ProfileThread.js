@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Post from '../Post/Post';
 
-function ProfileThread({id}) {
+function ProfileThread({id, profile}) {
   const [posts, setPosts] = useState([]);
 
   // Fetch user posts
@@ -28,12 +28,12 @@ function ProfileThread({id}) {
 
   useEffect(() => {
     getPosts();
-  });
+  }, [id]);
 
   return (
     <div>
       {posts.slice(0).reverse().map((post) => {
-          return <Post key={post._id} post={post} posts={posts} setPosts={setPosts}/>
+          return <Post key={post._id} post={post} posts={posts} setPosts={setPosts} id={id} profile={profile}/>
         })}
     </div>
   );

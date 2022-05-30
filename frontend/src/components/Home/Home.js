@@ -59,7 +59,7 @@ function Home() {
         </div>
         <div className="col-md-6 px-5">
             <CreatePost />
-            <Thread />
+            {/* <Thread /> */}
         </div>
         <div className="col d-none d-sm-block">
           Notifications

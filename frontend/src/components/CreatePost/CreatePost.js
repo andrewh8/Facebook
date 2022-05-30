@@ -24,7 +24,7 @@ function CreatePost() {
 
   return (
     <div>
-      <div className='card shadow-sm border border-1 py-3'>
+      <div className='card shadow-sm border border-1 py-3 mb-3'>
         <button type="button" className="text-start fs-5 createPost border-0 rounded-pill mx-4 my-2 p-2 text-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
             What's on your mind, {user.name}?
         </button>
