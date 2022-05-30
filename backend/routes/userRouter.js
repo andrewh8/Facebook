@@ -12,4 +12,7 @@ router.post('/login', userController.user_login_post);
 // GET request to display User details
 router.get('/me', protect, userController.user_detail_get);
 
+// GET request to display Profile details
+router.get('/:id', protect, userController.profile_detail_get);
+
 module.exports = router;

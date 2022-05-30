@@ -88,6 +88,40 @@ exports.user_detail_get = (req, res, next) => {
 }
 
 
+/// Display Other User details (GET /api/users/:id) - private ///
+exports.profile_detail_get = async (req, res, next) => {
+  try {
+    const otherUser = await User.findOne({_id: req.params.id});
+
+    if (!otherUser) {
+      const err = new Error('User not found');
+      err.status = 400;
+      return next(err);
+    }
+
+    // Check for User
+    if (!req.user) {
+      const err = new Error('Not Logged In');
+      err.status = 401;
+      return next(err);
+    }
+
+    // Implement friends check
+    // // Make sure the logged in user matches the post user
+    // if (post.user.toString() !== req.user.id) {
+    //   const err = new Error('User not authorized');
+    //   err.status = 401;
+    //   return next(err);
+    // }
+
+    res.json(otherUser);
+
+  } catch (err) {
+    next (err);
+  }
+}
+
+
 /// Generate JWT ///
 const generateToken = (id) => {
   return jwt.sign({id}, process.env.JWT_SECRET, {
