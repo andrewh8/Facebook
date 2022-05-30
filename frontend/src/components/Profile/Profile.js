@@ -11,8 +11,6 @@ function Profile() {
   const [profile, setProfile] = useState('')
   let { id } = useParams();
   const navigate = useNavigate();
-
-  /// REMOVE THIS IF FRIEND BUTTON DISSAPEARS
   const [error, setError] = useState('');
 
 

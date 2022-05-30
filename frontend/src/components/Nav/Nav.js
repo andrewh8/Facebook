@@ -102,7 +102,7 @@ function Nav() {
               </Link>
             </li>
             <li className='nav-item pb-1 linkIcon mx-2 d-flex align-items-center justify-content-center mt-2'>
-              <Link to='/' className='nav-link'>
+              <Link to='/notifications' className='nav-link'>
                 <FaBell color="black" fontSize="1.25em"/>
               </Link>
             </li>
