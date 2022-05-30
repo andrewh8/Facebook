@@ -70,7 +70,7 @@ function Notifications() {
   useEffect(() => {
     checkUser(user);
     getFriendRequests();
-  }, []);
+  }, [friendRequests]);
 
   return (
     <div className='notificationsBackground'>

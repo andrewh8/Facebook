@@ -1,12 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function Notification({request}) {
+  const [error, setError] = useState('');
+
+  const acceptFriend = () => {
+    const token = localStorage.getItem('jwt');
+    fetch(`http://localhost:5000/api/users/acceptFriend/${request._id}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }})
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.errorMessage) {
+        // Handle custom Error response sent from API
+        setError(data.errorMessage);
+      }
+    })
+  }
+
+  const removeError = () => {
+    setError('');
+  }
+
   return (
     <div className="card">
       <div className="card-body">
-        <h5 className="card-title">{request.name} sent you a friend request. Id is {request._id}</h5>
-        {/* <button class="btn btn-primary" onClick={acceptRequest}>Accept Request</button> */}
+        <h5 className="card-title"><span className='text-primary fw-bold'>{request.name}</span> sent you a friend request. Id is {request._id}</h5>
+        <button className="btn btn-primary" onClick={acceptFriend}>Accept Request</button>
       </div>
+      {error &&
+        <div className="alert alert-danger py-1 mt-5" role="alert">
+          {error}
+          <button type="button" className="btn-close ps-5" onClick={removeError}></button>
+        </div>
+      }
     </div>
   )
 }

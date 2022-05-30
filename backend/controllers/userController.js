@@ -148,6 +148,7 @@ exports.user_profile_get = async (req, res, next) => {
 /// Friend Request (PUT api/users/:id)
 exports.user_friendRequest_put = async (req, res, next) => {
   try {
+    const user = await User.findOne({_id: req.user.id});
     const otherUser = await User.findOne({_id: req.params.id});
 
     for (let i = 0; i < otherUser.friends.length; i++) {
@@ -166,8 +167,29 @@ exports.user_friendRequest_put = async (req, res, next) => {
       }
     }
 
-    await User.updateOne({"_id": `${req.params.id}`}, {"$push": {"friendRequests": {"_id": `${req.user.id}`, "name": `${req.user.name}`}}});
-    await User.updateOne({"_id": `${req.user.id}`}, {"$push": {"pendingFriends": `${req.params.id}`}});
+    await User.updateOne({"_id": `${otherUser._id}`}, {"$push": {"friendRequests": {"_id": `${user._id}`, "name": `${user.name}`}}});
+    await User.updateOne({"_id": `${user._id}`}, {"$push": {"pendingFriends": {"_id": `${otherUser._id}`, "name": `${otherUser.name}`}}});
+
+  } catch (err) {
+    next (err);
+  }
+}
+
+
+/// Accept Friend Request (PUT api/users/acceptFriend/:id)
+exports.user_acceptFriendRequest_put = async (req, res, next) => {
+  try {
+
+    const user = await User.findOne({_id: req.user.id});
+    const otherUser = await User.findOne({_id: req.params.id});
+
+    // User Recieving Notification removes request and adds friend
+    await User.updateOne({"_id": `${user._id}`}, {"$pull": {"friendRequests": {"_id": `${otherUser._id}`, "name": `${otherUser.name}`}}});
+    await User.updateOne({"_id": `${user._id}`}, {"$push": {"friends": {"_id": `${otherUser._id}`, "name": `${otherUser.name}`}}});
+
+    // OtherUser who sent the request removes pendingFriend and adds friend
+    await User.updateOne({"_id": `${otherUser._id}`}, {"$pull": {"pendingFriends": {"_id": `${user._id}`, "name": `${user.name}`}}});
+    await User.updateOne({"_id": `${otherUser._id}`}, {"$push": {"friends": {"_id": `${user._id}`, "name": `${user.name}`}}});
 
   } catch (err) {
     next (err);

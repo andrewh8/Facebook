@@ -21,8 +21,11 @@ router.get('/friends', protect, userController.user_friends_get);
 // GET request to display Profile details
 router.get('/:id', protect, userController.user_profile_get);
 
-// GET request to display Profile details
+// PUT request to display Profile details
 router.put('/:id', protect, userController.user_friendRequest_put);
+
+// PUT request to display Profile details
+router.put('/acceptFriend/:id', protect, userController.user_acceptFriendRequest_put);
 
 
 module.exports = router;

@@ -24,9 +24,7 @@ const userSchema = new Schema({
     required: false
   },
   pendingFriends: {
-    type: [{
-      type: String
-    }],
+    type: [{ _id: String, name: String }],
     required: false
   }
 });
