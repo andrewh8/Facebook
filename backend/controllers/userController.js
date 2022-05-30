@@ -87,6 +87,30 @@ exports.user_detail_get = (req, res, next) => {
 }
 
 
+/// Display User friends (GET /api/users/friends) - private ///
+exports.user_friends_get = async (req, res, next) => {
+  try {
+    const user = await User.findOne({_id: req.user.id});
+
+    // Check for User
+    if (!user) {
+      const err = new Error('Not Logged In');
+      err.status = 401;
+      return next(err);
+    }
+
+    res.status(200).json({
+      friends: user.friends,
+      friendRequests: user.friendRequests,
+      pendingFriends: user.pendingFriends
+    });
+
+  } catch (err) {
+    next (err);
+  }
+}
+
+
 /// Display Profile details (GET /api/users/:id) - private ///
 exports.user_profile_get = async (req, res, next) => {
   try {
@@ -126,41 +150,24 @@ exports.user_friendRequest_put = async (req, res, next) => {
   try {
     const otherUser = await User.findOne({_id: req.params.id});
 
-    // if (!otherUser) {
-    //   const err = new Error('User not found');
-    //   err.status = 400;
-    //   return next(err);
-    // }
-
-    // // Check for User
-    // if (!req.user) {
-    //   const err = new Error('Not Logged In');
-    //   err.status = 401;
-    //   return next(err);
-    // }
-
-    if (otherUser.friends.includes(req.user.id)) {
-      const err = new Error('You\'re already friends');
-      err.status = 400;
-      return next(err);
+    for (let i = 0; i < otherUser.friends.length; i++) {
+      if (otherUser.friends[i]._id === req.user.id) {
+        const err = new Error('You\'re already friends');
+        err.status = 400;
+        return next(err);
+      }
     }
 
-    if (otherUser.friendRequests.includes(req.user.id)) {
-      const err = new Error('You already sent a friend request');
-      err.status = 400;
-      return next(err);
+    for (let i = 0; i < otherUser.friendRequests.length; i++) {
+      if (otherUser.friendRequests[i]._id === req.user.id) {
+        const err = new Error('You already sent a friend request');
+        err.status = 400;
+        return next(err);
+      }
     }
 
-    await User.updateOne({"_id": `${req.params.id}`}, {"$push": {"friendRequests": `${req.user.id}`}});
+    await User.updateOne({"_id": `${req.params.id}`}, {"$push": {"friendRequests": {"_id": `${req.user.id}`, "name": `${req.user.name}`}}});
     await User.updateOne({"_id": `${req.user.id}`}, {"$push": {"pendingFriends": `${req.params.id}`}});
-    
-    // Implement friends check
-    // // Make sure the logged in user matches the post user
-    // if (post.user.toString() !== req.user.id) {
-    //   const err = new Error('User not authorized');
-    //   err.status = 401;
-    //   return next(err);
-    // }
 
   } catch (err) {
     next (err);

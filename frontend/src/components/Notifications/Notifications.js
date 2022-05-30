@@ -2,11 +2,12 @@ import React, { useContext, useEffect, useState }  from 'react';
 import { UserContext } from '../../UserContext';
 import { useNavigate } from 'react-router-dom';
 import Nav from '../Nav/Nav';
+import Notification from '../Notification/Notification';
 import './Notifications.css';
 
 function Notifications() {
   const {user, setUser} = useContext(UserContext);
-  // const [friendRequests, setFriendRequests] = useState([]);
+  const [friendRequests, setFriendRequests] = useState([]);
   const navigate = useNavigate();
 
   // Confirm Login/Access Status
@@ -45,33 +46,30 @@ function Notifications() {
     })
   }
 
-  // const getFriendRequests = () => {
-  //   const token = localStorage.getItem('jwt');
-  //   fetch('http://localhost:5000/api/users/me', {
-  //         method: 'GET',
-  //         headers: {
-  //           'Authorization': 'Bearer ' + token
-  //         }
-  //   })
-  //   .then(res => {
-  //     if (!res.ok) {
-  //       throw Error('Not Authorized');
-  //     }
-  //     return res.json()
-  //   })
-  //   .then(data => {
-  //     setFriendRequests(data.friendRequests);
-  //     console.log(data)
-  //     console.log(data.friendRequests)
-  //     console.log(friendRequests);
-  //   })
-  // }
+  const getFriendRequests = () => {
+    const token = localStorage.getItem('jwt');
+    fetch('http://localhost:5000/api/users/friends', {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + token
+          }
+    })
+    .then(res => {
+      if (!res.ok) {
+        throw Error('Not Authorized');
+      }
+      return res.json()
+    })
+    .then(data => {
+      setFriendRequests(data.friendRequests)
+    })
+  }
 
 
   // Render if User in state, otherwise obtain User with JWT or navigate to Login
   useEffect(() => {
     checkUser(user);
-    // getFriendRequests();
+    getFriendRequests();
   }, []);
 
   return (
@@ -83,15 +81,10 @@ function Notifications() {
           <p>This is only implemented for friend requests</p>
         </div>
       </section>
-      <section>
-        {/* {friendRequests.map((request) => {
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">{request} sent you a friend request</h5>
-              <button class="btn btn-primary" onClick={acceptRequest}>Accept Request</button>
-            </div>
-          </div>
-        })} */}
+      <section className='container w-50'>
+        {friendRequests.map((request) => {
+          return <Notification key={request} request={request}/>
+        })}
       </section>
     </div>
   )

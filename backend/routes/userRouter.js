@@ -15,6 +15,9 @@ router.get('/', protect, userController.user_list_get);
 // GET request to display User details
 router.get('/me', protect, userController.user_detail_get);
 
+// GET request to display User friends
+router.get('/friends', protect, userController.user_friends_get);
+
 // GET request to display Profile details
 router.get('/:id', protect, userController.user_profile_get);
 
