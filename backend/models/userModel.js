@@ -6,6 +6,12 @@ const userSchema = new Schema({
     type: String,
     required: [true, 'Please add a name']
   },
+  location: {
+    type: String,
+  },
+  school: {
+    type: String,
+  },
   email: {
     type: String,
     required: [true, 'Please add a email'],

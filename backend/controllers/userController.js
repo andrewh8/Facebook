@@ -87,6 +87,12 @@ exports.user_detail_get = (req, res, next) => {
 }
 
 
+/// Update User details (PUT /api/users/me) - private ///
+exports.user_update_put = (req, res, next) => {
+  res.json(req.user);
+}
+
+
 /// Display User friends (GET /api/users/friends) - private ///
 exports.user_friends_get = async (req, res, next) => {
   try {

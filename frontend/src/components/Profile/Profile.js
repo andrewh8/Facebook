@@ -13,7 +13,6 @@ function Profile() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
 
-
   // Confirm Login/Access Status
   // If there is no User in state, check for a JWT to get User via fetch. If no JWT, navigate to login
   const checkUser = (user) => {
@@ -90,6 +89,46 @@ function Profile() {
     setError('');
   }
 
+  // Update Profile State Inputs and Functions
+  const [name, setName] = useState('');
+  const nameChange = (e) => {
+    setName(e.target.value);
+  }
+  const [email, setEmail] = useState('');
+  const emailChange = (e) => {
+    setEmail(e.target.value);
+  }
+  const [location, setLocation] = useState('');
+  const locationChange = (e) => {
+    setLocation(e.target.value);
+  }
+  const [school, setSchool] = useState('');
+  const schoolChange = (e) => {
+    setSchool(e.target.value);
+  }
+  
+  // Update Profile fetch request
+  const updateProfile = () => {
+    const token = localStorage.getItem('jwt');
+    fetch('http://localhost:5000/api/users/me', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        location: location,
+        school: school,
+      })
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      setUser(data);
+    })
+  }
+
   // Render if User in state, otherwise obtain User with JWT or navigate to Login
   useEffect(() => {
     checkUser(user);
@@ -103,7 +142,7 @@ function Profile() {
         <div className='container w-75 d-flex justify-content-between align-items-end mt-5 pt-5'>
           <h1>{profile.name}</h1>
           {(user._id === profile._id) &&
-          <button className='btn editButton text-dark fw-semibold'>Edit Profile</button>
+          <button className='btn btn-secondary fw-semibold' data-bs-toggle="modal" data-bs-target='#editProfileModal'>Edit Profile</button>
           }
           {(user._id !== profile._id) &&
           <div className='d-flex justify-content-center'>
@@ -134,12 +173,6 @@ function Profile() {
                     <li className="list-group-item">Hobbies</li>
                   </ul>
                 </div>
-                <div className="card text-start p-3 mb-3">
-                  <div className="card-body">
-                    <h5 className="card-title">Pictures</h5>
-                    {/* Pictures.map */}
-                  </div>
-                </div>
               </div>
             </div>
             <div className="col-md-7">
@@ -151,6 +184,75 @@ function Profile() {
           </div>
         </div>
       </section>
+
+      {/* /// EDIT MODAL /// */}
+      <div className="modal fade" id={'editProfileModal'} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">Update Profile</h5>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+              <form>
+                <div className='mb-3'>
+                  <div className='mb-3'>
+                    <input
+                      className='form-control'
+                      type='text'
+                      name='username'
+                      id='username'
+                      onChange={nameChange}
+                      defaultValue={user.name}
+                      placeholder='Name'
+                      required>
+                    </input>
+                  </div>
+                  <div className='mb-3'>
+                    <input
+                      className='form-control'
+                      type='text'
+                      name='email'
+                      id='email'
+                      onChange={emailChange}
+                      defaultValue={user.email}
+                      placeholder='Email'
+                      required>
+                    </input>
+                  </div>
+                  <div className='mb-3'>
+                    <input
+                      className='form-control'
+                      type='text'
+                      name='location'
+                      id='location'
+                      onChange={locationChange}
+                      defaultValue={user.location}
+                      placeholder='Location'
+                      required>
+                    </input>
+                  </div>
+                  <div className='mb-3'>
+                    <input
+                      className='form-control'
+                      type='text'
+                      name='school'
+                      id='school'
+                      onChange={schoolChange}
+                      defaultValue={user.school}
+                      placeholder='School'
+                      required>
+                    </input>
+                  </div>
+                </div>
+                <div className="d-grid gap-2">
+                  <button className="btn btn-primary" type="submit" onClick={updateProfile}>Update</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
