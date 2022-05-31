@@ -75,10 +75,10 @@ function Notifications() {
   return (
     <div className='notificationsBackground'>
       <Nav />
-      <section className='bg-white shadow-sm mt-5 pt-5 pb-3 mb-3'>
+      <section className='card bg-white shadow-sm mt-5 pt-3 pb-1 mb-3'>
         <div className='container w-75 text-center'>
-          <h1>Notifications</h1>
-          <p>This is only implemented for friend requests</p>
+          <h2>Notifications</h2>
+          <div className='fs-6'>This is only implemented for friend requests</div>
         </div>
       </section>
       <section className='container w-50'>

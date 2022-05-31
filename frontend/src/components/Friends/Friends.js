@@ -75,9 +75,9 @@ function Friends() {
   return (
     <div className='friendsBackground'>
       <Nav />
-      <section className='bg-white shadow-sm mt-5 pt-5 pb-3 mb-3'>
+      <section className='card bg-white shadow-sm py-4 mb-3 mt-5'>
         <div className='container w-75 text-center'>
-          <h1>Friends</h1>
+          <h2>Friends</h2>
         </div>
       </section>
       <section className='container w-50'>
