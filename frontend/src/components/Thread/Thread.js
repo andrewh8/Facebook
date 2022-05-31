@@ -6,7 +6,7 @@ function Thread() {
 
   // Fetch user posts
   const getPosts = () => {
-    fetch('http://localhost:5000/api/posts', {
+    fetch('http://localhost:5000/api/posts/others', {
           method: 'GET',
           headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('jwt')

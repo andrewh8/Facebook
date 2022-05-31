@@ -46,7 +46,12 @@ function Post({post, posts, setPosts, id, profile}) {
       <div className="card-body pb-1">
         <div className='d-flex align-items-center justify-content-between'>
           <div className='text-start'>
-            <div className="my-0 fw-semibold">{profile.name}</div>
+            { profile &&
+              <div className="my-0 fw-semibold">{profile.name}</div>
+            }
+            {(!profile) &&
+              <div>{post.user}</div>
+            }
             <div className="date-text my-0 text-secondary">Date / Time</div>
           </div>
 

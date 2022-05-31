@@ -61,7 +61,7 @@ function Home() {
         </div>
         <div className="col-md-6 px-5 mt-5">
             <CreatePost />
-            {/* <Thread /> */}
+            <Thread />
         </div>
         <div className="col d-none d-sm-block mx-3">
           <Notifications />
