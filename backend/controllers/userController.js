@@ -167,6 +167,14 @@ exports.user_friendRequest_put = async (req, res, next) => {
       }
     }
 
+    for (let i = 0; i < req.user.friendRequests.length; i++) {
+      if (req.user.friendRequests[i]._id === req.params.id) {
+        const err = new Error(`You have a friend request from ${otherUser.name}`);
+        err.status = 400;
+        return next(err);
+      }
+    }
+
     await User.updateOne({"_id": `${otherUser._id}`}, {"$push": {"friendRequests": {"_id": `${user._id}`, "name": `${user.name}`}}});
     await User.updateOne({"_id": `${user._id}`}, {"$push": {"pendingFriends": {"_id": `${otherUser._id}`, "name": `${otherUser.name}`}}});
 
