@@ -3,6 +3,7 @@ import Post from '../Post/Post';
 
 function Thread() {
   const [posts, setPosts] = useState([]);
+  const [userList, setUserList] = useState([]);
 
   // Fetch user posts
   const getPosts = () => {
@@ -26,14 +27,33 @@ function Thread() {
     });
   }
 
+  // Fetch list of all users
+  const searchUsers = () => {
+    const token = localStorage.getItem('jwt');
+    fetch('http://localhost:5000/api/users', {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + token
+          }
+    })
+    .then(res => res.json())
+    .then(data => {
+      setUserList(data);
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
   useEffect(() => {
     getPosts();
-  });
+    searchUsers();
+  },[]);
 
   return (
     <div>
       {posts.slice(0).reverse().map((post) => {
-          return <Post key={post._id} post={post} posts={posts} setPosts={setPosts}/>
+          return <Post key={post._id} post={post} posts={posts} setPosts={setPosts} userList={userList}/>
         })}
     </div>
   );

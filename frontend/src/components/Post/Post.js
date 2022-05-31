@@ -1,12 +1,13 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { UserContext } from '../../UserContext';
 import {
   FaEllipsisH,
 } from 'react-icons/fa';
 import './Post.css';
 
-function Post({post, posts, setPosts, id, profile}) {
+function Post({post, posts, setPosts, id, profile, userList}) {
   const {user} = useContext(UserContext);
+  const [userName, setUserName] = useState('');
   const [postContent, setPostContent] = useState('');
   const postContentChange = (e) => {
     setPostContent(e.target.value);
@@ -41,6 +42,20 @@ function Post({post, posts, setPosts, id, profile}) {
       })
   }
 
+  const getUserName = () => {
+    if (userList) {
+      for (let i = 0; i < userList.length; i++) {
+        if (post.user == userList[i]._id) {
+          setUserName(userList[i].name);
+        }
+      }
+    }
+  }
+
+  useEffect(() => {
+    getUserName();
+  })
+
   return (
     <div className="card mb-3 shadow-sm border border-1">
       <div className="card-body pb-1">
@@ -50,7 +65,7 @@ function Post({post, posts, setPosts, id, profile}) {
               <div className="my-0 fw-semibold">{profile.name}</div>
             }
             {(!profile) &&
-              <div>{post.user}</div>
+              <div>{userName}</div>
             }
             <div className="date-text my-0 text-secondary">Date / Time</div>
           </div>
