@@ -8,7 +8,7 @@ import './Post.css';
 function Post({post, posts, setPosts, id, profile, userList}) {
   const {user} = useContext(UserContext);
   const [userName, setUserName] = useState('');
-  const [postContent, setPostContent] = useState('');
+  const [postContent, setPostContent] = useState(post.content);
   const postContentChange = (e) => {
     setPostContent(e.target.value);
   }

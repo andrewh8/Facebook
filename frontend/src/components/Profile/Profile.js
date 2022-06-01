@@ -90,19 +90,19 @@ function Profile() {
   }
 
   // Update Profile State Inputs and Functions
-  const [name, setName] = useState('');
+  const [name, setName] = useState(user.name);
   const nameChange = (e) => {
     setName(e.target.value);
   }
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(user.email);
   const emailChange = (e) => {
     setEmail(e.target.value);
   }
-  const [location, setLocation] = useState('');
+  const [location, setLocation] = useState(user.location);
   const locationChange = (e) => {
     setLocation(e.target.value);
   }
-  const [school, setSchool] = useState('');
+  const [school, setSchool] = useState(user.school);
   const schoolChange = (e) => {
     setSchool(e.target.value);
   }
@@ -168,9 +168,8 @@ function Profile() {
                     <p className="card-text">My name is {profile.name}. Please see the below information for more about me.</p>
                   </div>
                   <ul className="list-group list-group-flush">
-                    <li className="list-group-item">Location</li>
-                    <li className="list-group-item">School</li>
-                    <li className="list-group-item">Hobbies</li>
+                    <li className="list-group-item">Location: {profile.location}</li>
+                    <li className="list-group-item">School: {profile.school}</li>
                   </ul>
                 </div>
               </div>
@@ -228,8 +227,7 @@ function Profile() {
                       id='location'
                       onChange={locationChange}
                       defaultValue={user.location}
-                      placeholder='Location'
-                      required>
+                      placeholder='Location'>
                     </input>
                   </div>
                   <div className='mb-3'>
@@ -240,8 +238,7 @@ function Profile() {
                       id='school'
                       onChange={schoolChange}
                       defaultValue={user.school}
-                      placeholder='School'
-                      required>
+                      placeholder='School'>
                     </input>
                   </div>
                 </div>

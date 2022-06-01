@@ -88,8 +88,25 @@ exports.user_detail_get = (req, res, next) => {
 
 
 /// Update User details (PUT /api/users/me) - private ///
-exports.user_update_put = (req, res, next) => {
-  res.json(req.user);
+exports.user_update_put = async (req, res, next) => {
+  try {
+    const user = await User.findOne({_id: req.user.id});
+
+    if (!user) {
+      const err = new Error('User not found');
+      err.status = 400;
+      return next(err);
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(req.user.id, req.body, {
+      new: true
+    });
+
+    res.json(updatedUser);
+
+  } catch (err) {
+    next (err);
+  }
 }
 
 
