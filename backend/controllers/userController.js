@@ -152,14 +152,6 @@ exports.user_profile_get = async (req, res, next) => {
       return next(err);
     }
 
-    // Implement friends check
-    // // Make sure the logged in user matches the post user
-    // if (post.user.toString() !== req.user.id) {
-    //   const err = new Error('User not authorized');
-    //   err.status = 401;
-    //   return next(err);
-    // }
-
     res.json(otherUser);
 
   } catch (err) {
@@ -174,6 +166,7 @@ exports.user_friendRequest_put = async (req, res, next) => {
     const user = await User.findOne({_id: req.user.id});
     const otherUser = await User.findOne({_id: req.params.id});
 
+    // Confirm you're not already friends
     for (let i = 0; i < otherUser.friends.length; i++) {
       if (otherUser.friends[i]._id === req.user.id) {
         const err = new Error('You\'re already friends');
@@ -182,6 +175,7 @@ exports.user_friendRequest_put = async (req, res, next) => {
       }
     }
 
+    // Confirm you haven't already sent a friend request pending response
     for (let i = 0; i < otherUser.friendRequests.length; i++) {
       if (otherUser.friendRequests[i]._id === req.user.id) {
         const err = new Error('You already sent a friend request');
@@ -190,6 +184,7 @@ exports.user_friendRequest_put = async (req, res, next) => {
       }
     }
 
+    // Confirm you dont have a pending friend request from the other user
     for (let i = 0; i < req.user.friendRequests.length; i++) {
       if (req.user.friendRequests[i]._id === req.params.id) {
         const err = new Error(`You have a friend request from ${otherUser.name}`);
