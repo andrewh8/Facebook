@@ -25,8 +25,8 @@ function Notification({request}) {
 
   return (
     <div className="card shadow-sm">
-      <div className="card-body">
-        <h5 className="card-title"><span className='text-primary fw-bold'>{request.name}</span> sent you a friend request. Id is {request._id}</h5>
+      <div className="card-body text-center">
+        <h5 className="card-title"><span className='text-primary fw-bold'>{request.name}</span> sent you a friend request.</h5>
         <button className="btn btn-primary" onClick={acceptFriend}>Accept Request</button>
       </div>
       {error &&
