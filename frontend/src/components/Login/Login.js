@@ -75,7 +75,7 @@ function Login() {
         <p className='text-dark fs-4'>Join your friends online</p>
       </div>
       <div className='text-center'>
-        <form className='shadow p-5 rounded mb-3'>
+        <form className='shadow p-5 pb-2 rounded mb-3'>
           <div className='mb-3'>
             <input 
               className='form-control'
@@ -104,6 +104,9 @@ function Login() {
               Create New Account
             </Link>
           </div>
+          <p className='mt-3 mb-0'>Personal Project - Test Purposes Only</p>
+          <p className='m-0'>Test Email: john@gmail.com</p>
+          <p className='m-0'>Test Password: 123</p>
         </form>
         <div className='d-flex justify-content-center'>
           {error &&
