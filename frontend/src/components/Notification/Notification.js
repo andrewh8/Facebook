@@ -5,7 +5,7 @@ function Notification({request}) {
 
   const acceptFriend = () => {
     const token = localStorage.getItem('jwt');
-    fetch(`http://localhost:5000/api/users/acceptFriend/${request._id}`, {
+    fetch(`http://localhost:5000/api/users/loggedInUser/friends/${request._id}`, {
       method: 'PUT',
       headers: {
         'Authorization': 'Bearer ' + token

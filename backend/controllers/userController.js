@@ -99,8 +99,8 @@ exports.readLoggedInUser = (req, res, next) => {
 }
 
 
-/// Update User details (PUT /api/users/me) - private ///
-exports.user_update_put = async (req, res, next) => {
+/// Update Logged-In-User (PUT /api/users/loggedInUser) - private ///
+exports.updateLoggedInUser = async (req, res, next) => {
   try {
     const user = await User.findOne({_id: req.user.id});
 
@@ -122,8 +122,8 @@ exports.user_update_put = async (req, res, next) => {
 }
 
 
-/// Display User friends (GET /api/users/friends) - private ///
-exports.user_friends_get = async (req, res, next) => {
+/// Read Logged-In-User Friends (GET /api/users/loggedInUser/friends) - private ///
+exports.readLoggedInUserFriends = async (req, res, next) => {
   try {
     const user = await User.findOne({_id: req.user.id});
 
@@ -146,8 +146,8 @@ exports.user_friends_get = async (req, res, next) => {
 }
 
 
-/// Display Profile details (GET /api/users/:id) - private ///
-exports.user_profile_get = async (req, res, next) => {
+/// Read User (GET /api/users/:id) - private ///
+exports.readUser = async (req, res, next) => {
   try {
     const otherUser = await User.findOne({_id: req.params.id});
 
@@ -172,8 +172,8 @@ exports.user_profile_get = async (req, res, next) => {
 }
 
 
-/// Friend Request (PUT api/users/:id)
-exports.user_friendRequest_put = async (req, res, next) => {
+/// Add User as Friend (PUT api/users/:id)
+exports.addFriend = async (req, res, next) => {
   try {
     const user = await User.findOne({_id: req.user.id});
     const otherUser = await User.findOne({_id: req.params.id});
@@ -214,8 +214,8 @@ exports.user_friendRequest_put = async (req, res, next) => {
 }
 
 
-/// Accept Friend Request (PUT api/users/acceptFriend/:id)
-exports.user_acceptFriendRequest_put = async (req, res, next) => {
+/// Accept Friend (PUT api/users/loggedInUser/friends/:id)
+exports.acceptFriend = async (req, res, next) => {
   try {
 
     const user = await User.findOne({_id: req.user.id});
