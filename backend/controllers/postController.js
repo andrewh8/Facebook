@@ -1,7 +1,7 @@
 const Post = require('../models/postModel');
 
-/// Display a List of Posts (GET /api/posts) - private ///
-exports.post_list = async (req, res, next) => {
+/// List All Posts (GET /api/posts) - private ///
+exports.listPosts = async (req, res, next) => {
   try {
     const posts = await Post.find({user: req.user.id});
     res.json(posts);
@@ -11,30 +11,8 @@ exports.post_list = async (req, res, next) => {
 }
 
 
-/// Display a List of Other User's Posts (GET /api/posts/others) - private ///
-exports.post_listOthers_get = async (req, res, next) => {
-  try {
-    const posts = await Post.find({user: { $ne: req.user.id}});
-    res.json(posts);
-  } catch (err) {
-    next(err);
-  }
-}
-
-
-/// Display Profile Posts (GET /api/posts/profile/:id) - private ///
-exports.post_profilePosts_get = async (req, res, next) => {
-  try {
-    const posts = await Post.find({user: req.params.id});
-    res.json(posts);
-  } catch (err) {
-    next(err);
-  }
-}
-
-
 /// Create a Post (POST /api/posts) - private ///
-exports.post_create = async (req, res, next) => {
+exports.createPost = async (req, res, next) => {
   try {
     const {content, comments} = req.body;
 
@@ -58,8 +36,33 @@ exports.post_create = async (req, res, next) => {
   }
 }
 
-/// Update a Post (PUT /api/posts/id) - private ///
-exports.post_update = async (req, res, next) => {
+
+/// List All Other Users' Posts (GET /api/posts/others) - private ///
+exports.listOtherUserPosts = async (req, res, next) => {
+  try {
+    const posts = await Post.find({user: { $ne: req.user.id}});
+    res.json(posts);
+  } catch (err) {
+    next(err);
+  }
+}
+
+
+/// Read User's Posts (GET /api/posts/profile/:id) - private ///
+exports.readUserPosts = async (req, res, next) => {
+  try {
+    const posts = await Post.find({user: req.params.id});
+    res.json(posts);
+  } catch (err) {
+    next(err);
+  }
+}
+
+
+
+
+/// Update Post (PUT /api/posts/id) - private ///
+exports.updatePost = async (req, res, next) => {
   try {
     const post = await Post.findOne({_id: req.params.id});
 
@@ -94,8 +97,8 @@ exports.post_update = async (req, res, next) => {
   }
 }
 
-/// Delete a Post (DELETE /api/posts/id) - private ///
-exports.post_delete = async (req, res, next) => {
+/// Delete Post (DELETE /api/posts/id) - private ///
+exports.deletePost = async (req, res, next) => {
   try {
     const post = await Post.findOne({_id: req.params.id});
     
