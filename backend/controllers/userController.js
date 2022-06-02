@@ -2,8 +2,20 @@ const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-/// Register new User (POST /api/users) - public ///
-exports.user_register_post = async (req, res, next) => {
+
+/// List Users (GET api/users) - private ///
+exports.listUsers = async (req, res, next) => {
+  try {
+    const posts = await User.find({}, {name: 1});
+    res.json(posts);
+  } catch (err) {
+    next(err);
+  }
+}
+
+
+/// Create a User (POST /api/users) - public ///
+exports.createUser = async (req, res, next) => {
   try {
     const {name, email, password} = req.body;
   
@@ -55,7 +67,7 @@ exports.user_register_post = async (req, res, next) => {
 
 
 /// Login User (POST /api/users/login) - public ///
-exports.user_login_post = async (req, res, next) => {
+exports.loginUser = async (req, res, next) => {
   try {
     const {email, password} = req.body;
   
@@ -81,8 +93,8 @@ exports.user_login_post = async (req, res, next) => {
 }
 
 
-/// Display User details (GET /api/users/me) - private ///
-exports.user_detail_get = (req, res, next) => {
+/// Read Logged-In-User (GET /api/users/loggedInUser) - private ///
+exports.readLoggedInUser = (req, res, next) => {
   res.json(req.user);
 }
 
@@ -219,17 +231,6 @@ exports.user_acceptFriendRequest_put = async (req, res, next) => {
 
   } catch (err) {
     next (err);
-  }
-}
-
-
-/// List all Users (GET api/users) - private ///
-exports.user_list_get = async (req, res, next) => {
-  try {
-    const posts = await User.find({}, {name: 1});
-    res.json(posts);
-  } catch (err) {
-    next(err);
   }
 }
 

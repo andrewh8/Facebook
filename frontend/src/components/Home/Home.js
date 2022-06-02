@@ -26,7 +26,7 @@ function Home() {
 
   // Fetch user w/ JWT; Success - set User to response data; Failure - remove invalid JWT and navigate to login
   const getUser = (token) => {
-    fetch('http://localhost:5000/api/users/me', {
+    fetch('http://localhost:5000/api/users/loggedInUser', {
           method: 'GET',
           headers: {
             'Authorization': 'Bearer ' + token

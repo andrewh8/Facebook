@@ -27,9 +27,9 @@ function Login() {
 
   /// POST Login - /api/users/login  ///
   /// Provide login email and password credentials in api request upon form submittal ///
-  const loginUser = () => {
+  const createUser = () => {
     // Request - post email and password from Form to server
-    fetch('http://localhost:5000/api/users', {
+    fetch('http://localhost:5000/api/users/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -115,7 +115,7 @@ function Login() {
             />
           </div>
           <div className="d-grid gap-2">
-            <button className="btn btn-success" type="button" onClick={loginUser}>Register</button>
+            <button className="btn btn-success" type="button" onClick={createUser}>Register</button>
           </div>
         </form>
         <div className='d-flex justify-content-center'>

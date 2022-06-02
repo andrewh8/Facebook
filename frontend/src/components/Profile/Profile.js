@@ -28,7 +28,7 @@ function Profile() {
 
   // Fetch user w/ JWT; Success - set User to response data; Failure - remove invalid JWT and navigate to login
   const getUser = (token) => {
-    fetch('http://localhost:5000/api/users/me', {
+    fetch('http://localhost:5000/api/users/loggedInUser', {
           method: 'GET',
           headers: {
             'Authorization': 'Bearer ' + token
@@ -110,7 +110,7 @@ function Profile() {
   // Update Profile fetch request
   const updateProfile = () => {
     const token = localStorage.getItem('jwt');
-    fetch('http://localhost:5000/api/users/me', {
+    fetch('http://localhost:5000/api/users/loggedInUser', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
