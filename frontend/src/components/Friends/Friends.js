@@ -82,7 +82,7 @@ function Friends() {
       </section>
       <section className='container w-50'>
         {friends.map((friend) => {
-          return <Friend key={friend} friend={friend}/>
+          return <Friend key={friend._id} friend={friend}/>
         })}
       </section>
     </div>

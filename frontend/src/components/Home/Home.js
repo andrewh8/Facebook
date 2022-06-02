@@ -56,14 +56,14 @@ function Home() {
     <div data-testid='Home' className='homeBackground'>
       <Nav />
       <div className="row pt-5 text-center">
-        <div className="col d-none d-sm-block mx-3">
+        <div className="col d-none d-lg-block mx-3">
           <Friends />
         </div>
-        <div className="col-md-6 px-5 mt-5">
+        <div className="col-lg-6 px-5 mt-5">
             <CreatePost />
             <Thread />
         </div>
-        <div className="col d-none d-sm-block mx-3">
+        <div className="col d-none d-lg-block mx-3">
           <Notifications />
         </div>
       </div>
