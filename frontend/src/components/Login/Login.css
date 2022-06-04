@@ -9,3 +9,7 @@ form {
 .loginBackground {
     background-color: rgb(236, 239, 240);
 }
+
+.test-text {
+    font-size: 12px;
+}

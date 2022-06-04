@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-function Notification({request}) {
+function Notification({request, removeNotification, setRemoveNotification}) {
   const [error, setError] = useState('');
 
   const acceptFriend = () => {
     const token = localStorage.getItem('jwt');
-    fetch(`http://localhost:5000/api/users/loggedInUser/friends/${request._id}`, {
+    fetch(`/api/users/loggedInUser/friends/${request._id}`, {
       method: 'PUT',
       headers: {
         'Authorization': 'Bearer ' + token
@@ -16,6 +16,7 @@ function Notification({request}) {
         // Handle custom Error response sent from API
         setError(data.errorMessage);
       }
+      setRemoveNotification(data);
     })
   }
 
@@ -24,7 +25,7 @@ function Notification({request}) {
   }
 
   return (
-    <div className="card shadow-sm">
+    <div className="card shadow-sm" id={`notification${request.name}`}>
       <div className="card-body text-center">
         <h5 className="card-title"><span className='text-primary fw-bold'>{request.name}</span> sent you a friend request.</h5>
         <button className="btn btn-primary" onClick={acceptFriend}>Accept Request</button>

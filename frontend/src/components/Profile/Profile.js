@@ -9,10 +9,11 @@ import CreatePost from '../CreatePost/CreatePost';
 function Profile() {
   const {user, setUser} = useContext(UserContext);
   const [profile, setProfile] = useState('')
-  let { id } = useParams();
   const navigate = useNavigate();
   const [error, setError] = useState('');
-
+  const params = useParams();
+  const id = params.id;
+  
   // Confirm Login/Access Status
   // If there is no User in state, check for a JWT to get User via fetch. If no JWT, navigate to login
   const checkUser = (user) => {
@@ -28,7 +29,7 @@ function Profile() {
 
   // Fetch user w/ JWT; Success - set User to response data; Failure - remove invalid JWT and navigate to login
   const getUser = (token) => {
-    fetch('http://localhost:5000/api/users/loggedInUser', {
+    fetch('/api/users/loggedInUser', {
           method: 'GET',
           headers: {
             'Authorization': 'Bearer ' + token
@@ -52,7 +53,7 @@ function Profile() {
   // Fetch Profile info based on user ID from url params
   const getProfile = () => {
     const token = localStorage.getItem('jwt');
-    fetch(`http://localhost:5000/api/users/${id}`, {
+    fetch(`/api/users/${id}`, {
           method: 'GET',
           headers: {
             'Authorization': 'Bearer ' + token
@@ -70,7 +71,7 @@ function Profile() {
   // Add Friend
   const addFriend = () => {
     const token = localStorage.getItem('jwt');
-    fetch(`http://localhost:5000/api/users/${id}`, {
+    fetch(`/api/users/${id}`, {
       method: 'PUT',
       headers: {
         'Authorization': 'Bearer ' + token
@@ -89,15 +90,15 @@ function Profile() {
     setError('');
   }
 
-  // Update Profile State Inputs and Functions
+  // Update User State Inputs and Functions
   const [name, setName] = useState(user.name);
-  const nameChange = (e) => {
-    setName(e.target.value);
-  }
+  // const nameChange = (e) => {
+  //   setName(e.target.value);
+  // }
   const [email, setEmail] = useState(user.email);
-  const emailChange = (e) => {
-    setEmail(e.target.value);
-  }
+  // const emailChange = (e) => {
+  //   setEmail(e.target.value);
+  // }
   const [location, setLocation] = useState(user.location);
   const locationChange = (e) => {
     setLocation(e.target.value);
@@ -107,10 +108,11 @@ function Profile() {
     setSchool(e.target.value);
   }
   
-  // Update Profile fetch request
-  const updateProfile = () => {
+  // Update User fetch request
+  const updateUser = (e) => {
+    e.preventDefault();
     const token = localStorage.getItem('jwt');
-    fetch('http://localhost:5000/api/users/loggedInUser', {
+    fetch('/api/users/loggedInUser', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -133,7 +135,7 @@ function Profile() {
   useEffect(() => {
     checkUser(user);
     getProfile();
-  }, [profile]);
+  }, [id, user]);
 
   return (
     <div className='profileBackground'>
@@ -197,24 +199,24 @@ function Profile() {
                 <div className='mb-3'>
                   <div className='mb-3'>
                     <input
-                      className='form-control'
+                      className='form-control text-secondary'
                       type='text'
                       name='username'
                       id='username'
-                      onChange={nameChange}
-                      defaultValue={user.name}
+                      // onChange={nameChange}
+                      value={`${user.name}  --locked--`}
                       placeholder='Name'
                       required>
                     </input>
                   </div>
                   <div className='mb-3'>
                     <input
-                      className='form-control'
+                      className='form-control text-secondary'
                       type='text'
                       name='email'
                       id='email'
-                      onChange={emailChange}
-                      defaultValue={user.email}
+                      // onChange={emailChange}
+                      value={`${user.email}  --locked--`}
                       placeholder='Email'
                       required>
                     </input>
@@ -243,7 +245,7 @@ function Profile() {
                   </div>
                 </div>
                 <div className="d-grid gap-2">
-                  <button className="btn btn-primary" type="submit" onClick={updateProfile}>Update</button>
+                  <button className="btn btn-primary" type="submit" data-bs-dismiss="modal" onClick={updateUser}>Update</button>
                 </div>
               </form>
             </div>

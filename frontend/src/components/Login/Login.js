@@ -18,14 +18,14 @@ function Login() {
     setPassword(e.target.value);
   }
   const emailChange = (e) => {
-    setEmail(e.target.value);
+    setEmail(e.target.value.toLowerCase());
   }
 
   /// POST Login - /api/users/login  ///
   /// Provide login email and password credentials in api request upon form submittal ///
   const loginUser = () => {
     // Request - post email and password from Form to server
-    fetch('http://localhost:5000/api/users/login', {
+    fetch('/api/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -81,7 +81,7 @@ function Login() {
               className='form-control'
               onChange={emailChange}
               placeholder='Email'
-              type="text" 
+              type="email" 
               name="email" 
               id="email"
               required
@@ -104,9 +104,9 @@ function Login() {
               Create New Account
             </Link>
           </div>
-          <p className='mt-3 mb-0'>Personal Project - Test Purposes Only</p>
-          <p className='m-0'>Test Email: john@gmail.com</p>
-          <p className='m-0'>Test Password: 123</p>
+          <p className='mt-3 mb-0 test-text text-secondary'>Personal Project - Test Purposes Only</p>
+          <p className='m-0 test-text text-secondary'>Test Email: john@gmail.com</p>
+          <p className='m-0 test-text text-secondary'>Test Password: 123</p>
         </form>
         <div className='d-flex justify-content-center'>
           {error &&

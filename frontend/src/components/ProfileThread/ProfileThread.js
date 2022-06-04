@@ -3,10 +3,11 @@ import Post from '../Post/Post';
 
 function ProfileThread({id, profile}) {
   const [posts, setPosts] = useState([]);
+  const [refresh, setRefresh] = useState([]);
 
   // Fetch Profile posts
   const getPosts = () => {
-    fetch(`http://localhost:5000/api/posts/profile/${id}`, {
+    fetch(`/api/posts/profile/${id}`, {
           method: 'GET',
           headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('jwt')
@@ -28,12 +29,12 @@ function ProfileThread({id, profile}) {
 
   useEffect(() => {
     getPosts();
-  }, [id]);
+  }, [id, refresh]);
 
   return (
     <div>
       {posts.slice(0).reverse().map((post) => {
-          return <Post key={post._id} post={post} posts={posts} setPosts={setPosts} id={id} profile={profile}/>
+          return <Post key={post._id} post={post} posts={posts} setPosts={setPosts} id={id} profile={profile} getPosts={getPosts} setRefresh={setRefresh}/>
         })}
     </div>
   );

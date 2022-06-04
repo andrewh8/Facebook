@@ -5,7 +5,7 @@ import {
 } from 'react-icons/fa';
 import './Post.css';
 
-function Post({post, posts, setPosts, id, profile, userList}) {
+function Post({post, posts, setPosts, id, profile, userList, setRefresh}) {
   const {user} = useContext(UserContext);
   const [userName, setUserName] = useState('');
   const [postContent, setPostContent] = useState(post.content);
@@ -13,8 +13,9 @@ function Post({post, posts, setPosts, id, profile, userList}) {
     setPostContent(e.target.value);
   }
 
-  const updatePost = () => {
-    fetch(`http://localhost:5000/api/posts/${post._id}`, {
+  const updatePost = (e) => {
+    e.preventDefault();
+    fetch(`/api/posts/${post._id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -24,21 +25,22 @@ function Post({post, posts, setPosts, id, profile, userList}) {
         content: postContent,
       })
     })
+    .then(res => res.json())
+    .then((data) => {
+      setRefresh(data);
+    })
   }
 
   const deletePost = () => {
-    fetch(`http://localhost:5000/api/posts/${post._id}`, {
+    fetch(`/api/posts/${post._id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + localStorage.getItem('jwt')
       }})
-      .then((res) => {
-        if(res.ok) {
-          const id = posts.indexOf(post);
-          posts.splice(id, 1);
-          setPosts(posts)
-        }
+      .then(res => res.json())
+      .then((data) => {
+        setRefresh(data);
       })
   }
 
@@ -59,15 +61,14 @@ function Post({post, posts, setPosts, id, profile, userList}) {
   return (
     <div className="card mb-3 shadow-sm border border-1">
       <div className="card-body pb-1">
-        <div className='d-flex align-items-center justify-content-between'>
+        <div className='d-flex mb-2 align-items-center justify-content-between'>
           <div className='text-start'>
             { profile &&
-              <div className="my-0 fw-semibold">{profile.name}</div>
+              <h5 className="my-0 fw-semibold">{profile.name}</h5>
             }
             {(!profile) &&
-              <div>{userName}</div>
+              <h5 className='my-0 fw-semibold'>{userName}</h5>
             }
-            <div className="date-text my-0 text-secondary">Date / Time</div>
           </div>
 
           {/* Edit and Delete Buttons */}
@@ -119,7 +120,7 @@ function Post({post, posts, setPosts, id, profile, userList}) {
                   </textarea>
                 </div>
                 <div className="d-grid gap-2">
-                  <button className="btn btn-primary" type="submit" onClick={updatePost}>Update</button>
+                  <button className="btn btn-primary" type="submit" data-bs-dismiss="modal" onClick={updatePost}>Update</button>
                 </div>
               </form>
             </div>

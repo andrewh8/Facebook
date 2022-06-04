@@ -19,7 +19,7 @@ function Login() {
     setName(e.target.value);
   }
   const emailChange = (e) => {
-    setEmail(e.target.value);
+    setEmail(e.target.value.toLowerCase());
   }
   const passwordChange = (e) => {
     setPassword(e.target.value);
@@ -29,7 +29,7 @@ function Login() {
   /// Provide login email and password credentials in api request upon form submittal ///
   const createUser = () => {
     // Request - post email and password from Form to server
-    fetch('http://localhost:5000/api/users/create', {
+    fetch('/api/users/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -97,7 +97,7 @@ function Login() {
               className='form-control'
               onChange={emailChange}
               placeholder='Email'
-              type="text" 
+              type="email" 
               name="email" 
               id="email"
               required

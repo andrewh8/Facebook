@@ -80,6 +80,8 @@ exports.loginUser = async (req, res, next) => {
         _id: user.id,
         name: user.name,
         email: user.email,
+        location: user.location,
+        school: user.school,
         token: generateToken(user._id)
       });
     } else {
@@ -229,6 +231,7 @@ exports.acceptFriend = async (req, res, next) => {
     await User.updateOne({"_id": `${otherUser._id}`}, {"$pull": {"pendingFriends": {"_id": `${user._id}`, "name": `${user.name}`}}});
     await User.updateOne({"_id": `${otherUser._id}`}, {"$push": {"friends": {"_id": `${user._id}`, "name": `${user.name}`}}});
 
+    res.json(user)
   } catch (err) {
     next (err);
   }

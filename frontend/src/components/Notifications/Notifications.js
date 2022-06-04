@@ -8,6 +8,7 @@ import './Notifications.css';
 function Notifications() {
   const {user, setUser} = useContext(UserContext);
   const [friendRequests, setFriendRequests] = useState([]);
+  const [removeNotification, setRemoveNotification] = useState([])
   const navigate = useNavigate();
 
   // Confirm Login/Access Status
@@ -25,7 +26,7 @@ function Notifications() {
 
   // Fetch user w/ JWT; Success - set User to response data; Failure - remove invalid JWT and navigate to login
   const getUser = (token) => {
-    fetch('http://localhost:5000/api/users/loggedInUser', {
+    fetch('/api/users/loggedInUser', {
           method: 'GET',
           headers: {
             'Authorization': 'Bearer ' + token
@@ -48,7 +49,7 @@ function Notifications() {
 
   const getFriendRequests = () => {
     const token = localStorage.getItem('jwt');
-    fetch('http://localhost:5000/api/users/loggedInUser/friends', {
+    fetch('/api/users/loggedInUser/friends', {
           method: 'GET',
           headers: {
             'Authorization': 'Bearer ' + token
@@ -70,7 +71,7 @@ function Notifications() {
   useEffect(() => {
     checkUser(user);
     getFriendRequests();
-  }, [friendRequests]);
+  }, [removeNotification]);
 
   return (
     <div className='notificationsBackground'>
@@ -83,7 +84,7 @@ function Notifications() {
       </section>
       <section className='container w-50'>
         {friendRequests.map((request) => {
-          return <Notification key={request} request={request}/>
+          return <Notification key={request} request={request} removeNotification={removeNotification} setRemoveNotification={setRemoveNotification}/>
         })}
       </section>
     </div>

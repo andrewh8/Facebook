@@ -20,7 +20,7 @@ function Nav() {
   // Fetch Profile info based on user ID from url params
   const searchUsers = () => {
     const token = localStorage.getItem('jwt');
-    fetch('http://localhost:5000/api/users', {
+    fetch('/api/users', {
           method: 'GET',
           headers: {
             'Authorization': 'Bearer ' + token

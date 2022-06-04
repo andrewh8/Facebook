@@ -7,7 +7,7 @@ function Thread() {
 
   // Fetch user posts
   const getPosts = () => {
-    fetch('http://localhost:5000/api/posts/others', {
+    fetch('/api/posts/others', {
           method: 'GET',
           headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('jwt')
@@ -30,7 +30,7 @@ function Thread() {
   // Fetch list of all users
   const searchUsers = () => {
     const token = localStorage.getItem('jwt');
-    fetch('http://localhost:5000/api/users', {
+    fetch('/api/users', {
           method: 'GET',
           headers: {
             'Authorization': 'Bearer ' + token
