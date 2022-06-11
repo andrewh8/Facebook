@@ -1,6 +1,6 @@
 # Facebook
 
-Full stack application using React, Express, and MongoDB. REST API, MCV pattern, JWT Authentication, password encryption.
+Full stack application using React, Express, and MongoDB. REST API, MCV design pattern, JWT Authentication, password encryption.
 
 Allows users to create, read, update, and delete posts. Register a new account, login, connect with friends, recieve notifications, search for and view user profiles.
 
