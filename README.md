@@ -1,15 +1,14 @@
 # Facebook
 
-Full stack Social Media application utilizing React, Javascript, NodeJs, Express, and MongoDB. Deployed to Heroku.
+Full stack application using React, Express, and MongoDB. REST API, MCV pattern, JWT Authentication, password encryption.
 
-Design:
-REST API,
-MVC Design Pattern,
-JWT Authentication,
-Password Encryption
+Allows users to create, read, update, and delete posts. Register a new account, login, connect with friends, recieve notifications, search for and view user profiles.
 
-Features:
-Create, Read, Update, Delete Posts;
-Request and Accept Friends,
-Search for Users,
-and more...
+![image](https://user-images.githubusercontent.com/88868021/173198527-1d726299-0f19-4657-8c1e-4738971aa277.png)
+
+![image](https://user-images.githubusercontent.com/88868021/173198534-9d84f57f-95dd-4f70-a659-8ec63831c1be.png)
+
+![image](https://user-images.githubusercontent.com/88868021/173198545-688f860c-86cb-41e0-a571-afbe6efb7973.png)
+
+![image](https://user-images.githubusercontent.com/88868021/173198555-16516488-faf5-46d7-92c2-d6ed22871a77.png)
+
