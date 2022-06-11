@@ -2,7 +2,7 @@
 
 Full stack application using React, Express, and MongoDB. REST API, MCV design pattern, JWT Authentication, password encryption.
 
-Allows users to create, read, update, and delete posts. Register a new account, login, connect with friends, recieve notifications, search for and view user profiles.
+Allows users to create, read, update, and delete posts. Register a new account, login, connect with friends, receive notifications, search for and view user profiles.
 
 ![image](https://user-images.githubusercontent.com/88868021/173198527-1d726299-0f19-4657-8c1e-4738971aa277.png)
 
